@@ -2,6 +2,7 @@ import { Controller, Post, Get, Body, UseGuards } from '@nestjs/common';
 import { EpisodeService } from '../Controller/episode.service';
 import { Episode } from '../Model/episode.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
+import { Roles } from '../../Middlewares/roles.decorator'; 
 
 @Controller('episodes')
 export class EpisodeController {
