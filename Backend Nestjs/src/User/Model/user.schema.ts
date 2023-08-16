@@ -5,6 +5,8 @@ import { Document } from 'mongoose';
 export class User {
   @Prop({ required: true })
   name: string;
+  @Prop({ required: true })
+  type: "Watcher" | "Admin";
 }
 
 export type UserDocument = User & Document;
