@@ -1,15 +1,20 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { IsNotEmpty } from 'class-validator';
+import { HydratedDocument, now } from 'mongoose';
 
 
 export type UserDocument = HydratedDocument<User>;
 
 @Schema()
 export class User {
-  @Prop({ required: true })
+  @Prop()
+  @IsNotEmpty()
   name: string;
-  @Prop({ required: true })
+  @Prop()
+  @IsNotEmpty()
   type: "Watcher" | "Admin";
+  @Prop({default: now})
+  createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

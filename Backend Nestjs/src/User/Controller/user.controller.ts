@@ -11,7 +11,7 @@ export class UserController {
   @Post()
   @UseGuards(RolesGuard)
   @Roles('Admin')
-  async createUser(@Body() userData: Partial<User>): Promise<User> {
+  async createUser(@Body() userData: User): Promise<User> {
     return this.userService.create(userData);
   }
 
