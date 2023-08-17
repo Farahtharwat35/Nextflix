@@ -9,9 +9,10 @@ import { AccountModule } from 'src/Account/account.module';
   // imports: [MongooseModule.forRoot('mongodb://127.0.0.1:27017/nextflix')
   imports: [
     MongooseModule.forRoot(
+      // 'mongodb://192.168.146.14:27017/nextflix'),
       'mongodb+srv://nextflix:mongodb1234@cluster0.gbumfm1.mongodb.net/?retryWrites=true&w=majority'), // for my remote db (comment it and uncomment the above line)
-    UserModule,
+    UserModule, 
     AccountModule
-  ],
+  ]
 })
 export class AppModule { }

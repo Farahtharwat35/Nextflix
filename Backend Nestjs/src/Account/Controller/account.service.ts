@@ -1,15 +1,15 @@
-import { Body, Injectable } from '@nestjs/common';
+import { Body, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Account, AccountDocument } from '../Model/account.schema';
-
 @Injectable({})
 export class AccountService {
-  constructor(@InjectModel(Account.name) private AccountModel: Model<AccountDocument>) {}
+  constructor(@InjectModel(Account.name) private readonly AccountModel: Model<Account>) {}
 
-  async create(@Body() AccountData: Partial<Account>): Promise<Account> {
-    const newAccount = new this.AccountModel(AccountData);
-    return newAccount.save();
+  async create(accountData: Account): Promise<Account> {
+    Logger.log("Reload 2")
+    const newAccount = await this.AccountModel.create(accountData);
+    return newAccount;
   }
   async remove(id: string): Promise<Account | null> {
     return this.AccountModel.findByIdAndRemove(id).exec();
