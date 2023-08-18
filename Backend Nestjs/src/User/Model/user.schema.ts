@@ -5,7 +5,7 @@ import { HydratedDocument, now } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({timestamps: true})
 export class User {
   @Prop()
   @IsNotEmpty()
@@ -14,9 +14,9 @@ export class User {
   @IsNotEmpty()
   @IsIn(["Watcher", "Admin"])
   type: string;
-  @Prop({default: now})
-  @IsEmpty()
-  createdAt: Date;
+  // @Prop({default: now})
+  // @IsEmpty()
+  // createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
