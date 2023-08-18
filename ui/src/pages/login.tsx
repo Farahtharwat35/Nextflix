@@ -28,7 +28,7 @@ const Login = () => {
     };
 
     return (
-        <motion.div className="h-screen p-4 flex justify-end gap-4">
+        <motion.div className="h-full p-4 flex justify-end gap-4">
             <motion.div
                 className="hidden lg:flex rounded-lg overflow-hidden relative"
                 initial={{
