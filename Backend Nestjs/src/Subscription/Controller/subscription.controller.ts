@@ -14,8 +14,6 @@ export class SubscriptionController {
   }
 
   @Get()
-  @UseGuards(RolesGuard) 
-  @Roles('Admin', 'Watcher') 
   async getAllSubscriptions(): Promise<Subscription[]> {
     return this.SubscriptionService.findAll();
   }

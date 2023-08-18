@@ -1,8 +1,10 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { IsArray, IsEmail, IsIn, IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsEmail, IsIn, IsNotEmpty, IsNumber, IsPositive, IsString, ValidateNested } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
+import { Category } from 'src/Category/Model/category.schema';
 
-const tiers = ["Normal", "Platinum"];
+const tiers = ["Standard", "Premium"];
 
 export type SubscriptionDocument = HydratedDocument<Subscription>;
 @Schema()
@@ -20,8 +22,9 @@ export class Subscription {
     @Prop()
     @IsNotEmpty()
     @IsArray()
-    @IsString({each: true})
-    categories: string[]
+    @ValidateNested({ each: true })
+    @Type(() => Category)
+    categories: Category[]
 
 
 
