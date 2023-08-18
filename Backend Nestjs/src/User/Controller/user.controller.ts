@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards, Param } from '@nestjs/common';
 import { User } from '../Model/user.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
 import { Roles } from '../../Middlewares/roles.decorator'; 
@@ -13,6 +13,15 @@ export class UserController {
     return this.userService.create(userData);
   }
 
+  @Post("update/:id")
+  async updateUser(@Param('id') id: string, @Body() userdata: User) {
+    return this.userService.update(id, userdata)
+  }
+
+  @Post("delete/:id")
+  async deleteUser(@Param('id') id: string) {
+    return this.userService.deleteUser(id)
+  }
   @Get()
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
