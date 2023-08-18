@@ -9,15 +9,11 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @UseGuards(RolesGuard)
-  @Roles('Admin')
   async createUser(@Body() userData: User): Promise<User> {
     return this.userService.create(userData);
   }
 
   @Get()
-  @UseGuards(RolesGuard) 
-  @Roles('Admin', 'Watcher') 
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAll();
   }

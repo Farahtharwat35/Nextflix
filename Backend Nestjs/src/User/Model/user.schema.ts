@@ -1,5 +1,5 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { IsNotEmpty } from 'class-validator';
+import { IsEmpty, IsIn, IsNotEmpty } from 'class-validator';
 import { HydratedDocument, now } from 'mongoose';
 
 
@@ -12,8 +12,10 @@ export class User {
   name: string;
   @Prop()
   @IsNotEmpty()
-  type: "Watcher" | "Admin";
+  @IsIn(["Watcher", "Admin"])
+  type: string;
   @Prop({default: now})
+  @IsEmpty()
   createdAt: Date;
 }
 
