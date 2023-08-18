@@ -2,7 +2,7 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Type } from 'class-transformer';
 import { IsArray, IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
-import { Subscription } from 'rxjs';
+import { Subscription } from '../../Subscription/Model/subscription.schema';
 import { User } from 'src/User/Model/user.schema';
 
 export type AccountDocument = HydratedDocument<Account>;
