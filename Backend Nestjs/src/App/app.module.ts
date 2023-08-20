@@ -6,6 +6,7 @@ import { AccountModule } from 'src/Account/account.module';
 import { SubscriptionModule } from 'src/Subscription/subscription.module';
 import { CategoryModule } from 'src/Category/category.module';
 import { UserModule } from 'src/User/user.module';
+import { EpisodeModule } from 'src/Episode/episode.module';
 
 @Module({
   // imports: [MongooseModule.forRoot('mongodb://127.0.0.1:27017/nextflix')
@@ -16,7 +17,8 @@ import { UserModule } from 'src/User/user.module';
     UserModule, 
     AccountModule,
     SubscriptionModule,
-    CategoryModule
+    CategoryModule,
+    EpisodeModule
   ]
 })
 export class AppModule { }
