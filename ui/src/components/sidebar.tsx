@@ -10,7 +10,7 @@ import Avatar from "boring-avatars";
 
 const Sidebar = () => {
     return (
-        <div className="fixed top-0 left-0 h-full box-border w-20 bg-slate-950 pb-8 flex flex-col gap-16 items-center">
+        <div className="fixed top-0 left-0 h-full box-border w-20 bg-slate-950 pb-8 flex flex-col gap-16 items-center z-40">
             <div className="h-16 w-full flex items-center justify-center">
                 <LogoIcon className="fill-indigo-700 w-8 h-8" />
             </div>
