@@ -28,14 +28,14 @@ const Login = () => {
     };
 
     return (
-        <motion.div className="h-full p-4 flex justify-end gap-4">
+        <motion.div className="h-screen max-h-full p-4 flex justify-center items-center gap-4 relative">
             <motion.div
-                className="hidden lg:flex rounded-lg overflow-hidden relative"
+                className="hidden lg:flex rounded-lg overflow-hidden absolute top-[1%] left-[1%] right-[1%] bottom-[1%]"
                 initial={{
-                    left: "-5%",
                     opacity: 0,
+					scale: 0.9
                 }}
-                animate={{ left: 0, opacity: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{
                     duration: 0.6,
                 }}
@@ -48,7 +48,7 @@ const Login = () => {
                     height={2160}
                 />
             </motion.div>
-            <div className="px-4 py-6 bg-slate-600/70 backdrop-blur-md rounded-lg grow lg:grow-0 lg:w-[25rem] lg:shrink-0">
+            <div className="px-4 py-6 bg-slate-600/50 backdrop-blur-md rounded-lg grow lg:grow-0 lg:w-[25rem] lg:shrink-0">
                 <motion.div
                     className="flex flex-col justify-between gap-3 items-center h-full"
                     initial={{ opacity: 0 }}

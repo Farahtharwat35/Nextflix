@@ -12,27 +12,27 @@ const Register = () => {
     const [passCon, setPassCon] = useState("");
 
     return (
-        <motion.div className="h-full p-4 flex justify-end gap-4">
+        <motion.div className="h-screen max-h-full p-4 flex justify-center items-center gap-4 relative">
             <motion.div
-                className="hidden lg:flex rounded-lg overflow-hidden relative"
+                className="hidden lg:flex rounded-lg overflow-hidden absolute top-[1%] left-[1%] right-[1%] bottom-[1%]"
                 initial={{
-                    left: "-5%",
                     opacity: 0,
+                    scale: 0.9,
                 }}
-                animate={{ left: 0, opacity: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{
                     duration: 0.6,
                 }}
             >
                 <Image
-                    className="object-cover object-center h-full"
+                    className="object-cover -scale-x-100 object-right h-full"
                     src="/images/register_hero.jpg"
-                    alt="Love + Death Robots Hero Image"
+                    alt="Interstellar Hero Image"
                     width={3840}
                     height={2160}
                 />
             </motion.div>
-            <div className="px-4 py-6 bg-slate-600/70 backdrop-blur-md rounded-lg grow lg:grow-0 lg:w-[25rem] lg:shrink-0">
+            <div className="px-4 py-6 bg-slate-600/50 backdrop-blur-md rounded-lg grow lg:grow-0 lg:w-[25rem] lg:shrink-0">
                 <motion.div
                     className="flex flex-col justify-between gap-3 items-center h-full"
                     initial={{ opacity: 0 }}
@@ -46,9 +46,11 @@ const Register = () => {
                     <div className="w-full px-4">
                         <div className="mb-8 flex flex-col items-center justify-center">
                             <h2 className="font-bold text-2xl">
-                                Welcome to Nextflix!
+                                Welcome back!
                             </h2>
-                            <p className="text-sm">Please fill in your info</p>
+                            <p className="text-sm">
+                                Please fill in your details
+                            </p>
                         </div>
 
                         <form className="flex flex-col gap-2">
@@ -56,43 +58,43 @@ const Register = () => {
                                 label="Name"
                                 id="name"
                                 type="text"
-                                value={name}
                                 onChange={setName}
+                                value={name}
                             />
                             <InputField
-                                value={email}
-                                onChange={setEmail}
                                 label="Email"
                                 id="email"
                                 type="email"
+                                onChange={setEmail}
+                                value={email}
                             />
                             <InputField
-                                value={pass}
-                                onChange={setPass}
                                 label="Password"
                                 id="pass"
                                 type="password"
+                                onChange={setPass}
+                                value={pass}
                             />
                             <InputField
-                                value={passCon}
-                                onChange={setPassCon}
                                 label="Confirm Password"
-                                id="pass-con"
+                                id="passCon"
                                 type="password"
+                                onChange={setPassCon}
+                                value={passCon}
                             />
-                            <button className="bg-indigo-600 py-1 rounded-full border-indigo-500 border-2 border-solid mt-2">
-                                Sign Up
-                            </button>
+                            <button
+                                className={`${"bg-indigo-600"} py-1 rounded-full border-indigo-500 border-2 border-solid mt-2 flex justify-center items-center h-8 box-content`}
+                            >Sign Up</button>
                         </form>
                     </div>
 
                     <Link href="/login">
                         <div className="group">
                             <span className="opacity-70 group-hover:opacity-80 transition-all ease-in">
-                                Already a Member?
+                                Already have a member?
                             </span>{" "}
                             <span className="font-bold opacity-75 group-hover:opacity-100 transition-all ease-in underline">
-                                Log in
+                                Log In
                             </span>
                         </div>
                     </Link>
