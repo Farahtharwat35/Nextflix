@@ -11,3 +11,22 @@ body {
         )
         rgb(var(--background-start-rgb));
 }
+
+* {
+    scrollbar-color: #312e81 #00000000;
+    scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+    max-width: 6px;
+    max-height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #00000000;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #312e81;
+    border-radius: 10px;
+}

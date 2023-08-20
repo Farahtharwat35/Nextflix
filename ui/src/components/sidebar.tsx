@@ -12,8 +12,6 @@ import { useRouter } from "next/router";
 const Sidebar = () => {
     const router = useRouter();
 
-	console.log(router.pathname.includes("/movies"))
-
     return (
         <div className="fixed top-0 left-0 h-full box-border w-20 bg-slate-950 pb-8 flex flex-col gap-16 items-center z-40">
             <div className="h-16 w-full flex items-center justify-center">
@@ -25,28 +23,28 @@ const Sidebar = () => {
                     label="Home"
                     href="/"
                 >
-                    <HomeIcon className="w-6 h-6 stroke-inherit" />
+                    <HomeIcon className="w-6 h-6 stroke-inherit transition-all ease-in" />
                 </SidebarButton>
                 <SidebarButton
                     active={router.pathname.includes("/shows")}
                     label="TV Shows"
                     href="/shows"
                 >
-                    <TvIcon className="w-6 h-6 stroke-inherit" />
+                    <TvIcon className="w-6 h-6 stroke-inherit transition-all ease-in" />
                 </SidebarButton>
                 <SidebarButton
                     active={router.pathname.includes("/movies")}
                     label="Movies"
                     href="/movies"
                 >
-                    <FilmIcon className="w-6 h-6 stroke-inherit" />
+                    <FilmIcon className="w-6 h-6 stroke-inherit transition-all ease-in" />
                 </SidebarButton>
                 <SidebarButton
                     active={router.pathname.includes("/settings")}
                     label="Settings"
                     href="/settings"
                 >
-                    <Cog6ToothIcon className="w-6 h-6 stroke-inherit" />
+                    <Cog6ToothIcon className="w-6 h-6 stroke-inherit transition-all ease-in" />
                 </SidebarButton>
             </div>
             <div className="absolute bottom-0 left-0 right-0 h-20 flex items-center justify-center">
