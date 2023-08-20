@@ -27,10 +27,12 @@ export class Account {
 
     @Prop()
     @IsNotEmpty()
+    @IsString()
     password: string
 
     @Prop()
     @IsNotEmpty()
+    @IsString()
     pohoneNo: string
 
     @Prop()
