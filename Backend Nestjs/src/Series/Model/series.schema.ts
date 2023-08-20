@@ -11,4 +11,4 @@ export class Series extends Document {
   seasons: Season[]; // Reference to the Season schema
 }
 
-export const SeriesSchema = SchemaFactory.createForClass(Series);
+export const SeriesSchema = SchemaFactory.createForClass(Series); //create a Mongoose model (acts as a blueprint for creating documents based on the defined schema.)

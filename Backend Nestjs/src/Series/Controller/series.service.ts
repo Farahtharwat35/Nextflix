@@ -8,8 +8,8 @@ export class SeriesService {
   constructor(@InjectModel(Series.name) private seriesModel: Model<Series>) {}
 
   async createSeries(seriesData: Partial<Series>): Promise<Series> {
-    const newSeries = new this.seriesModel(seriesData);
-    return newSeries.save();
+      return this.seriesModel.create(seriesData);
+        
   }
 
   async getAllSeries(): Promise<Series[]> {
