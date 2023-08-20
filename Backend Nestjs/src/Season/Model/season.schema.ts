@@ -1,6 +1,6 @@
 import { Prop, Schema ,SchemaFactory } from '@nestjs/mongoose';
-import { Media, MediaSchema } from '../../Media/Model/media.schema'; // Import the Media schema
-import { Episode } from '../../Episode/Model/episode.schema'; // Import the Episode schema
+import { Media, MediaSchema } from '../../Media/Model/media.schema'; 
+import { Episode } from '../../Episode/Model/episode.schema'; 
 
 @Schema()
 export class Season extends Media {
