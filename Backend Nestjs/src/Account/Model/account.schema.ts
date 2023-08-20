@@ -33,13 +33,13 @@ export class Account {
     @Prop()
     @IsNotEmpty()
     @IsString()
-    pohoneNo: string
+    phoneNo: string
 
     @Prop()
     @IsNotEmpty()
-    @ValidateNested()
-    @Type(() => Subscription)
-    subscription: Subscription
+    // @ValidateNested()
+    // @Type(() => Subscription)
+    subscription: "Standard" | "Platinum"
 
     
 
