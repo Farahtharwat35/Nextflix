@@ -42,4 +42,11 @@ export class EpisodeController {
   async deleteEpisode(@Param('id') id: string): Promise<void> {
     return this.episodeService.deleteEpisode(id);
   }
+
+  @Get('EpisodeId/:id') 
+  @UseGuards(RolesGuard) 
+  @Roles('Admin', 'Watcher') 
+  async getSpecificEpisode(@Param('id') id: string): Promise<Episode> {
+    return this.episodeService.getSpecificEpisodeID(id);
+  }
 }

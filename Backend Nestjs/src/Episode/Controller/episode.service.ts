@@ -38,4 +38,10 @@ export class EpisodeService {
       throw new NotFoundException('Episode not found');
     }
   }
+  async getSpecificEpisodeID(id: string): Promise<Episode> {
+    const specificEpisode = await this.episodeModel.findById(id).exec();
+    if (!specificEpisode) {
+      throw new NotFoundException('Specific episode not found');
+    }
+    return specificEpisode; }
 }
