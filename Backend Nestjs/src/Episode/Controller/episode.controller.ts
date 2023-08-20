@@ -9,8 +9,8 @@ export class EpisodeController {
   constructor(private readonly episodeService: EpisodeService) {}
 
   @Post()
-  @UseGuards(RolesGuard)
-  @Roles('Admin')
+  // @UseGuards(RolesGuard)
+  // @Roles('Admin')
   async createEpisode(@Body() episodeData: Partial<Episode>): Promise<Episode> {
     return this.episodeService.createEpisode(episodeData);
   }

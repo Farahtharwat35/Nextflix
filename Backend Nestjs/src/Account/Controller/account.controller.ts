@@ -8,8 +8,8 @@ export class AccountController {
   constructor(private readonly AccountService: AccountService) {}
 
   @Post()
-  @UseGuards(RolesGuard) 
-  @Roles("Watcher","Admin")
+  // @UseGuards(RolesGuard) 
+  // @Roles("Watcher","Admin")
   async createAccount(@Body() accountData: Account): Promise<Account> {
     Logger.error("Hot reload")
     return this.AccountService.create(accountData);

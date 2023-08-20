@@ -17,10 +17,10 @@ export class Account {
     users: User[]
     @Prop()
     @IsNotEmpty()
-    password: string
+    password: string 
     @Prop()
     @IsNotEmpty()
-    pohoneNo: string
+    phoneNo: string
     @Prop()
     @IsNotEmpty()
     subscription: "Normal" | "Platinum"
