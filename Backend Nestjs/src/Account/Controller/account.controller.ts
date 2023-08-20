@@ -26,6 +26,13 @@ export class AccountController {
   async deleteUser(@Param('id') id: string) {
     return this.AccountService.deleteAccount(id)
   }
+  
+  @Get("/:id")
+  async getUser(@Param('id') id: string) {
+    const x = await this.AccountService.findOne(id);
+    x.name = '';
+    return x;
+  }
 
 
 }

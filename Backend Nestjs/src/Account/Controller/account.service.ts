@@ -13,8 +13,9 @@ export class AccountService {
   }
   
   async update(id: string, accountData: Account) {
+    console.log("Data", accountData)
     if (ObjectId.isValid(id)) {
-      return this.AccountModel.updateOne({ "_id": id }, accountData);
+      return this.AccountModel.updateOne({ "_id": id }, accountData).exec();
     } else {
       return "Invalid ID"
     }
@@ -28,6 +29,10 @@ export class AccountService {
   }
   async findAll(): Promise<Account[]> {
     return this.AccountModel.find().exec();
+  }
+
+  async findOne(id: string){
+    return this.AccountModel.findById(id).exec()
   }
 
 }
