@@ -1,11 +1,11 @@
 import { Controller, Post, Get, Body, UseGuards, Logger, Param } from '@nestjs/common';
 import { Account } from '../Model/account.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
-import { Roles } from '../../Middlewares/roles.decorator'; 
+import { Roles } from '../../Middlewares/roles.decorator';
 import { AccountService } from './account.service';
 @Controller('Accounts')
 export class AccountController {
-  constructor(private readonly AccountService: AccountService) {}
+  constructor(private readonly AccountService: AccountService) { }
 
   @Post()
   async createAccount(@Body() accountData: Account): Promise<Account> {
@@ -19,6 +19,14 @@ export class AccountController {
 
   @Post("update/:id")
   async updateUser(@Param('id') id: string, @Body() accountData: Account) {
+    const acc = await this.AccountService.findOne(id)
+    console.log(acc)
+    acc.users.forEach(u => {
+      if (u! in accountData.users) {
+        accountData.users.push(u)
+      }
+    })
+    console.log("after", accountData)
     return this.AccountService.update(id, accountData)
   }
 
@@ -26,11 +34,10 @@ export class AccountController {
   async deleteUser(@Param('id') id: string) {
     return this.AccountService.deleteAccount(id)
   }
-  
+
   @Get("/:id")
   async getUser(@Param('id') id: string) {
     const x = await this.AccountService.findOne(id);
-    x.name = '';
     return x;
   }
 

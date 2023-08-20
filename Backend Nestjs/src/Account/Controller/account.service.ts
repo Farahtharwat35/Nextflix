@@ -3,9 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Account, AccountDocument } from '../Model/account.schema';
 import {ObjectId} from "bson"
+import { User } from 'src/User/Model/user.schema';
 @Injectable({})
 export class AccountService {
-  constructor(@InjectModel(Account.name) private readonly AccountModel: Model<Account>) {}
+  constructor(@InjectModel(Account.name) private readonly AccountModel: Model<Account>, 
+              @InjectModel(User.name) private readonly UserModel: Model<User>) {}
 
   async create(accountData: Account): Promise<Account> {
     const newAccount = await this.AccountModel.create(accountData);
@@ -32,6 +34,7 @@ export class AccountService {
   }
 
   async findOne(id: string){
+    const users = (await this.AccountModel.findById(id).exec()).users
     return this.AccountModel.findById(id).exec()
   }
 

@@ -21,9 +21,9 @@ export class Account {
     @Prop()
     @IsNotEmpty()
     @IsArray()
-    @ValidateNested({each: true})
-    @Type(() => User)
-    users: User[]
+    // @ValidateNested({each: true})
+    // @Type(() => User)
+    users: []
 
     @Prop()
     @IsNotEmpty()
@@ -40,9 +40,6 @@ export class Account {
     // @ValidateNested()
     // @Type(() => Subscription)
     subscription: "Standard" | "Platinum"
-
-    
-
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account);
