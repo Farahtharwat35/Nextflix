@@ -1,4 +1,4 @@
-import { Body, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Body, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Account, AccountDocument } from '../Model/account.schema';
@@ -44,5 +44,24 @@ export class AccountService {
 
   async findAccountUsers(id: string): Promise<UserDocument[] | undefined> {
     return await this.userModel.find({ account: id }).exec();
+  }
+
+  async createUser({ accountId, name }: { accountId: string; name: string }): Promise<{ error: boolean; info: string; }> {
+    const acc = await this.AccountModel.findById(accountId).exec();
+    if (acc.users.length >= 5)
+      return {
+        error: true,
+        info: "Max Users count exceeded"
+      };
+    const user = await this.userModel.create({
+      account: acc._id,
+      name
+    });
+    acc.users.push(user);
+    acc.save();
+    return {
+      error: false,
+      info: "User Added"
+    }
   }
 }

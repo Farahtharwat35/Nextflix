@@ -48,4 +48,14 @@ export class AccountController {
   async getAccountUsers(@Request() req): Promise<User[]> {
     return await this.AccountService.findAccountUsers(req.user.sub);
   }
+
+  @Post("users")
+  @UseGuards(RolesGuard, AuthGuard)
+  @Roles('Admin', 'Watcher')
+  async addAccountUser(@Body() body: { name: string }, @Request() req): Promise<{ error: boolean; info: string }> {
+    return await this.AccountService.createUser({
+      accountId: req.user.sub,
+      name: body.name
+    });
+  }
 }
