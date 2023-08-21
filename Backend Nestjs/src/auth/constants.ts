@@ -1,0 +1,1 @@
+export const jwtConstants = "Very secure and detailed secret that no one will ever guess it because if they did they are probably a freak";

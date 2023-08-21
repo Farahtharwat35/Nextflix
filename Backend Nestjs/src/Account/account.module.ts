@@ -3,12 +3,14 @@ import { AccountController } from "./Controller/account.controller";
 import { AccountService } from "./Controller/account.service";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Account, AccountSchema } from "./Model/account.schema";
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{name: Account.name, schema: AccountSchema}])
+        MongooseModule.forFeature([{ name: Account.name, schema: AccountSchema }])
     ],
     controllers: [AccountController],
-    providers: [AccountService]
+    providers: [AccountService, JwtService],
+    exports: [AccountService]
 })
-export class AccountModule {}
+export class AccountModule { }
