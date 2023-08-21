@@ -18,6 +18,9 @@ export class Episode extends Document {
   @Prop({ required: true })
   duration: number ;
 
+  @Prop({required:true})
+  url : string 
+
 }
 
 export const EpisodeSchema = SchemaFactory.createForClass(Episode);
