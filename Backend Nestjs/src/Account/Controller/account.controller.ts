@@ -3,10 +3,25 @@ import { Account } from '../Model/account.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
 import { Roles } from '../../Middlewares/roles.decorator'; 
 import { AccountService } from './account.service';
+import { JwtService } from '@nestjs/jwt';
+import { UnauthorizedException } from '@nestjs/common';
+
 @Controller('Accounts')
 export class AccountController {
   constructor(private readonly AccountService: AccountService) {}
 
+  @Post('login') // New route for login
+  async login(@Body() credentials: { email: string; password: string }) {
+    const account = await this.AccountService.findByEmail(credentials.email);
+
+    if (account && account.password === credentials.password) {
+      const payload = { email: account.email, sub: account._id };
+      const token = this.jwtService.sign(payload);
+      return { access_token: token };
+    }
+
+    throw new UnauthorizedException('Invalid credentials');
+  }
   @Post()
   // @UseGuards(RolesGuard) 
   // @Roles("Watcher","Admin")

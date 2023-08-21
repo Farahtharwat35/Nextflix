@@ -7,13 +7,6 @@ export type Review = {
   rating: number;
 };
 
-
-enum Genre {
-  ACTION = 'Action',
-  DRAMA = 'Drama',
-  COMEDY = 'Comedy',
-}
-
 @Schema()
 export class Media extends Document {
   @Prop({ required: true })
@@ -35,13 +28,7 @@ export class Media extends Document {
   productionDate: Date;
 
   @Prop()
-  videoTrailer: string; // URL to the video/
-  
-  @Prop({ required: true, enum: Genre })
-  genre: Genre
-
-  @Prop([{ type: String }])
-  actors: string[];
+  videoTrailer: string; // URL to the video/trailer
 
 }
 
