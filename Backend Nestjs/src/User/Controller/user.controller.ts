@@ -10,7 +10,7 @@ export class UserController {
 
   @Post()
   @UseGuards(RolesGuard)
-  @Roles('Admin')
+  @Roles('Admin', 'Watcher')
   async createUser(@Body() userData: User): Promise<User> {
     return this.userService.create(userData);
   }

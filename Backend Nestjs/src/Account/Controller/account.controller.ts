@@ -1,18 +1,20 @@
-import { Controller, Post, Get, Body, UseGuards, Logger, Param } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards, Logger, Param, Request } from '@nestjs/common';
 import { Account } from '../Model/account.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
 import { Roles } from '../../Middlewares/roles.decorator';
 import { AccountService } from './account.service';
 import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { User } from 'src/User/Model/user.schema';
 
 @Controller('Accounts')
 export class AccountController {
   constructor(private readonly AccountService: AccountService) { }
 
   @Post()
-  // @UseGuards(RolesGuard) 
-  // @Roles("Watcher","Admin")
+  @UseGuards(RolesGuard)
+  @Roles("Admin")
   async createAccount(@Body() accountData: Account): Promise<Account> {
     Logger.error("Hot reload")
     return this.AccountService.create(accountData);
@@ -37,5 +39,13 @@ export class AccountController {
   @Roles("Admin")
   async deleteUser(@Param('id') id: string) {
     return this.AccountService.deleteAccount(id)
+  }
+
+
+  @Get("users")
+  @UseGuards(RolesGuard, AuthGuard)
+  @Roles('Admin', 'Watcher')
+  async getAccountUsers(@Request() req): Promise<User[]> {
+    return await this.AccountService.findAccountUsers(req.user.sub);
   }
 }
