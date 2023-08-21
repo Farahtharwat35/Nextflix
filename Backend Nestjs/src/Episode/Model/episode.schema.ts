@@ -7,16 +7,19 @@ export class Episode extends Document {
   title: string;
 
   @Prop({ required: true })
-  video: string; // URL to the video
+  video: string;
 
   @Prop()
-  poster: string; // URL to the episode poster
+  poster: string; 
 
   @Prop({ required: true })
   overview: string;
 
   @Prop({ required: true })
   duration: number ;
+
+  @Prop({required:true})
+  url : string 
 
 }
 

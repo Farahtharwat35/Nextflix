@@ -1,17 +1,14 @@
 import { Prop, Schema ,SchemaFactory } from '@nestjs/mongoose';
-import { Media, MediaSchema } from '../../Media/Model/media.schema'; // Import the Media schema
-import { Episode } from '../../Episode/Model/episode.schema'; // Import the Episode schema
+import { Episode } from '../../Episode/Model/episode.schema'; 
 
 @Schema()
-export class Season extends Media {
-  @Prop()
-  genre: string;
+export class Season extends Document {
 
-  @Prop([{ type: String }])
-  actors: string[];
-
-  @Prop([{ type: Episode }])
+  @Prop([{ type: Episode,required:true }])
   episodes: Episode[]; // Reference to the Episode schema
+
+  @Prop([{type:String,required:true}])
+  name:string
 }
 
 export const SeasonSchema = SchemaFactory.createForClass(Season);

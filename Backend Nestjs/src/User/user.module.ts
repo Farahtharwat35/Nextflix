@@ -1,17 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User, UserDocument } from './Model/user.schema';
+import { Module } from "@nestjs/common";
+import { UserController } from "./Controller/user.controller";
+import { UserService } from "./Controller/user.service";
+import { MongooseModule } from "@nestjs/mongoose";
+import { User, UserSchema } from "./Model/user.schema";
 
-@Injectable()
-export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-
-  async create(name: string): Promise<User> {
-    const newUser = new this.userModel({ name });
-    return newUser.save();
-  }
-  async remove(id: string): Promise<User | null> {
-    return this.userModel.findByIdAndRemove(id).exec();
-  }
-}
+@Module({
+    imports: [
+        MongooseModule.forFeature([{name: User.name, schema: UserSchema}])
+    ],
+    controllers: [UserController],
+    providers: [UserService]
+})
+export class UserModule {}
