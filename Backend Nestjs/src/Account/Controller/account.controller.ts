@@ -16,8 +16,8 @@ export class AccountController {
   }
 
   @Get()
-  // @UseGuards(RolesGuard) 
-  // @Roles("Admin")
+  @UseGuards(RolesGuard) 
+  @Roles("Admin")
   async getAllAccounts(): Promise<Account[]> {
     return this.AccountService.findAll();
   }
