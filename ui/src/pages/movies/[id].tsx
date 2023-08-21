@@ -1,9 +1,22 @@
 import LogoIcon from "@/assets/logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { MovieData } from "..";
 
 const Movie = () => {
+    const [media, setMedia] = useState<MovieData>();
     const router = useRouter();
+
+    useEffect(() => {
+        const id = router.query.id;
+        id &&
+            fetch(`http://localhost:3001/movies/${id}`)
+                .then((res) => res.json())
+                .then((res) => setMedia(res));
+    }, [router.query.id]);
+
+    console.log(media);
 
     return (
         <div className="h-screen box-border flex flex-col gap-4 overflow-y-auto bg-black">
@@ -17,14 +30,18 @@ const Movie = () => {
                     </div>
                 </Link>
             </nav>
-            <div className="flex flex-col gap-4 w-full items-center mx-auto pb-8">
-                <iframe
-                    id="ytplayer"
-                    typeof="text/html"
-                    className="outline-none rounded-lg shadow-md h-screen pt-16 shrink-0 w-full"
-                    height="unset"
-                    src={`https://www.youtube.com/embed/${router.query.id}?autoplay=1`}
-                ></iframe>
+            <div className="flex flex-col gap-4 w-full items-center mx-auto h-full">
+                {media ? (
+                    <iframe
+                        id="ytplayer"
+                        typeof="text/html"
+                        className="outline-none rounded-lg shadow-md h-full pt-16 shrink-0 w-full"
+                        height="unset"
+                        src={`https://www.youtube.com/embed/${media.url}?autoplay=1`}
+                    ></iframe>
+                ) : (
+                    "Loading"
+                )}
             </div>
         </div>
     );
