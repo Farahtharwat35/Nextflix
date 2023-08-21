@@ -32,7 +32,8 @@ export class AuthService {
 			name,
 			phoneNo,
 			subscription,
-			users: []
+			users: [],
+			type: "Watcher"
 		});
 
 		const payload = { sub: account._id, username: account.name };
