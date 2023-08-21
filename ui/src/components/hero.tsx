@@ -23,6 +23,11 @@ const Hero = () => {
                         <span className="text-neutral-400">This movie is:</span>{" "}
                         Mind-Bending.
                     </div>
+                    <div className="text-sm">
+                        <span className="text-neutral-400">Duration:</span>{" "}
+						2 hours.
+                    </div>
+
                 </div>
             </div>
             <div className="p-8 top-0 bottom-0 left-0 right-0 absolute">
