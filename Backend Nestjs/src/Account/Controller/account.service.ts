@@ -45,10 +45,14 @@ export class AccountService {
   ) { }
 
   async create(accountData: Account): Promise<AccountDocument> {
-    const newAccount = await this.AccountModel.create(accountData);
-    // newAccount['token'] = this.jwtService.sign({ id: newAccount.id, email: newAccount.email, type: newAccount.type });
-    // console.log("//////////////////////////////////////////////////Test Token:", newAccount)
-    return newAccount;
+    const email = accountData.email
+    const res = await this.AccountModel.findOne({"email": email})
+    if(res == null){
+      const newAccount = await this.AccountModel.create(accountData);
+      // newAccount['token'] = this.jwtService.sign({ id: newAccount.id, email: newAccount.email, type: newAccount.type });
+      // console.log("//////////////////////////////////////////////////Test Token:", newAccount)
+      return newAccount;
+    }
   }
 
   async update(id: string, accountData: Account) {
