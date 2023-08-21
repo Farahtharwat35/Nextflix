@@ -1,10 +1,8 @@
-import { Schema } from 'mongoose';
-
-export type ID = Schema.Types.ObjectId;
+import { ObjectId } from 'bson';
 
 export interface JwtPayload {
   email: string;
   username: string;
-  id: ID;
+  id: ObjectId;
   type: string;
 }

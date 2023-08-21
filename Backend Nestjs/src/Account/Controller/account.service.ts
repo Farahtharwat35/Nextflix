@@ -4,8 +4,7 @@ import { Model } from 'mongoose';
 import { Account, AccountDocument } from '../Model/account.schema';
 import { ObjectId } from "bson"
 import { User, UserDocument } from 'src/User/Model/user.schema';
-import { UserService } from 'src/User/Controller/user.service';
-import { UserModule } from 'src/User/user.module';
+
 @Injectable({})
 export class AccountService {
   constructor(
@@ -46,12 +45,6 @@ export class AccountService {
   }
 
   async findAccountUsers(id: string): Promise<UserDocument[] | undefined> {
-    const acc = await this.userModel.find({}).exec();
-    const users: UserDocument[] = []
-    // for (const u of acc.users) {
-    //   console.log(u)
-    // }
-    // return acc.users;
-    throw new Error("");
+    return await this.userModel.find({ account: id }).exec();
   }
 }
