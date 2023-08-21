@@ -1,0 +1,33 @@
+import LogoIcon from "@/assets/logo";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+const Movie = () => {
+    const router = useRouter();
+
+    return (
+        <div className="h-screen box-border flex flex-col gap-4 overflow-y-auto bg-black">
+            <nav className="fixed pl-20 top-0 left-0 right-0 h-16 bg-black flex gap-4 items-center">
+                <Link href="/">
+                    <div className="animate-pulse flex gap-4 items-center">
+                        <LogoIcon className="fill-indigo-700" />
+                        <h2 className="font-bold text-2xl text-indigo-700">
+                            Nextflix
+                        </h2>
+                    </div>
+                </Link>
+            </nav>
+            <div className="flex flex-col gap-4 w-full items-center mx-auto pb-8">
+                <iframe
+                    id="ytplayer"
+                    typeof="text/html"
+                    className="outline-none rounded-lg shadow-md h-screen pt-16 shrink-0 w-full"
+                    height="unset"
+                    src={`https://www.youtube.com/embed/${router.query.id}?autoplay=1`}
+                ></iframe>
+            </div>
+        </div>
+    );
+};
+
+export default Movie;

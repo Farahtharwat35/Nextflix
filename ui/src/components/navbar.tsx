@@ -6,8 +6,9 @@ const Navbar = () => {
             <div>
                 <h2 className="font-bold text-2xl text-indigo-700">Nextflix</h2>
             </div>
-            <div className="grow flex">
-                <Link href="/categories">Categories</Link>
+            <div className="grow flex gap-4">
+                <Link href="/categories" className="hover:text-indigo-500">Categories</Link>
+                <Link href="/my-list" className="hover:text-indigo-500">My List</Link>
             </div>
         </nav>
     );
