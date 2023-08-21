@@ -16,8 +16,6 @@ const Movie = () => {
                 .then((res) => setMedia(res));
     }, [router.query.id]);
 
-    console.log(media);
-
     return (
         <div className="h-screen box-border flex flex-col gap-4 overflow-y-auto bg-black">
             <nav className="fixed pl-20 top-0 left-0 right-0 h-16 bg-black flex gap-4 items-center">

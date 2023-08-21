@@ -2,7 +2,7 @@ import CardsRow from "@/components/cardsRow";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import { useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 
 export interface MovieData {
     _id: string;
@@ -19,21 +19,26 @@ export interface MovieData {
     url: string;
 }
 
-const Home = () => {
-    const [data, setData] = useState<MovieData[]>();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const res = await fetch("http://127.0.0.1:3001/movies");
+    const data = await res.json();
 
-    useEffect(() => {
-        fetch("http://localhost:3001/movies")
-            .then((res) => res.json())
-            .then((d) => setData(d));
-    }, []);
+    return {
+        props: { data },
+    };
+};
 
+interface Props {
+    data: MovieData[];
+}
+
+const Home: React.FC<Props> = ({ data }) => {
     return (
         <div className="h-screen mt-16 ml-20 box-border flex flex-col gap-4 overflow-y-auto pb-8">
             <Sidebar />
             <Navbar />
             <Hero />
-            {data && <CardsRow movies={data} />}
+            <CardsRow movies={data} />
         </div>
     );
 };
