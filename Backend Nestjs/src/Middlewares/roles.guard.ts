@@ -11,16 +11,16 @@ export class RolesGuard extends AuthGuard('jwt') implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const requiredType = this.reflector.get<string>('role', context.getHandler());
+
     if (!requiredType)
       return true;
 
     const req = context.switchToHttp().getRequest();
 
-    if (await this.getAuthType(req) === requiredType) {
+    if (requiredType.includes(await this.getAuthType(req)))
       return true;
-    }
 
-    return true;
+    return false;
   }
 
   private async getAuthType(req: Request): Promise<string> {
