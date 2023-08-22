@@ -7,7 +7,7 @@ import { IsUrl } from 'class-validator';
 @Schema()
 export class Movies extends Media {
 
-  @Prop({ required: true })
+  @Prop()
   duration: number; // Duration in minutes
 
   @Prop({ required: true })

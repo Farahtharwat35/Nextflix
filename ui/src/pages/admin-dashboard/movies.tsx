@@ -23,29 +23,37 @@ const MoviesPage = () => {
                     setMovies(res)});
     }, [auth]);
 
+    const refresh = () => {
+        auth &&
+            fetch(`http://localhost:3001/movies`, {
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((res) => setMovies(res));
+    };
 
     const handleAddMovie = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!auth) return;
         try {
-            const res = await fetch("http://localhost:3001/Accounts", {
+            const res = await fetch("http://localhost:3001/movies", {
                 headers: {
                     authorization: `Bearer ${auth.accessToken}`,
                     "Content-Type": "application/json",
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    name: "kled",
+                    name: name,
+                    url: url,
+                    videoTrailer: videoTrailer
 
-                    email: "led",
-                    users: [],
-
-                    password: "1222",
-                    phoneNo: "dlajdklsaj",
-                    subscription: "Platinum",
-                    type: "Admin",
+                    
+,
                 }),
             });
+
 
             await res.json();
 
@@ -60,6 +68,7 @@ const MoviesPage = () => {
             // Reset the form fields
             setName("");
             setURL("");
+            setVideoTrailer("")
         } catch (error) {
             console.error(error);
             // Handle error
@@ -88,7 +97,7 @@ const MoviesPage = () => {
                 <input
                     className="bg-opacity-0 bg-white"
                     type="text"
-                    placeholder="movie image"
+                    placeholder="Video trailer"
                     value={videoTrailer}
                     onChange={(e) => setVideoTrailer(e.target.value)}
                 />
@@ -106,8 +115,55 @@ const MoviesPage = () => {
                         <div>{a.name}</div>
                         <div>{a.url}</div>
                         <div>{a.videoTrailer}</div>
-                        <div>Edit</div>
-                        <div>Delete</div>
+                        <div
+                            className="text-rose-600 cursor-pointer"
+                            onClick={async () => {
+                                if (!auth)
+                                    return;
+
+                                const res = await fetch(
+                                    `http://localhost:3001/movies/${a._id}`,
+                                    {
+                                        headers: {
+                                            authorization: `Bearer ${auth.accessToken}`,
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            name: name,
+                                            url: url,
+                                            videoTrailer: videoTrailer
+                                        }),
+                                        method: "PUT",
+                                    }
+                                );
+								refresh();
+                            }}
+                        >
+                            Edit
+                        </div>
+                        <div
+                            className="text-rose-600 cursor-pointer"
+                            onClick={async () => {
+                                if (!auth)
+                                    return;
+
+                                const res = await fetch(
+                                    `http://localhost:3001/movies/${a._id}`,
+                                    {
+                                        headers: {
+                                            authorization: `Bearer ${auth.accessToken}`,
+                                            "Content-Type": "application/json",
+                                        },
+                                        method: "DELETE",
+                                    }
+                                );
+                                
+                                console.log(res)
+								refresh();
+                            }}
+                        >
+                            Delete
+                        </div>
                     </div>
                 ))}
             </div>
