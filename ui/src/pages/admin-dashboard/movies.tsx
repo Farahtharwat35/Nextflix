@@ -51,8 +51,6 @@ const MoviesPage = () => {
                     name: name,
                     url: url,
                     videoTrailer: videoTrailer
-
-                    
 ,
                 }),
             });
@@ -108,7 +106,7 @@ const MoviesPage = () => {
                     className="bg-opacity-0 bg-white border-b border-solid border-indigo-700 outline-none"
 
                     type="text"
-                    placeholder="movie image"
+                    placeholder="movie trailer"
                     value={url}
                     onChange={(e) => setURL(e.target.value)}
                 />
@@ -116,18 +114,20 @@ const MoviesPage = () => {
                     className="bg-opacity-0 bg-white border-b border-solid border-indigo-700 outline-none"
 
                     type="text"
-                    placeholder="Video trailer"
+                    placeholder="movie image"
                     value={videoTrailer}
                     onChange={(e) => setVideoTrailer(e.target.value)}
                 />
                 <button type="submit">Add Movie</button>
             </form>
             <div className="my-10">
+
                 <div className="grid grid-cols-5">
                     <div className="border-solid border border-indigo-300 px-2">Name</div>
                     <div className="border-solid border border-indigo-300 px-2">Image</div>
                     <div className="border-solid border border-indigo-300 px-2">Link</div>
                     <div className="text-center col-span-2 border-solid border border-indigo-300 px-2">Actions</div>
+
                 </div>
                 {movies.map((a) => (
                     <div key={a._id} className="grid grid-cols-5">

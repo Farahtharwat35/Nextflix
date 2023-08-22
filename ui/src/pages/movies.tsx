@@ -20,6 +20,7 @@ const Movies = () => {
             })
                 .then((res) => res.json())
                 .then((res) => {
+					console.log(res);
                     setData(res);
                 });
     }, [auth]);
@@ -34,7 +35,7 @@ const Movies = () => {
             </div>
             <div className="flex flex-wrap gap-8 px-12">
                 {data.map((m) => (
-                    <Card key={m._id} name={m.name} id={m.url} />
+                    <Card key={m._id} name={m.name} id={m.url} imageUrl={m.videoTrailer}/>
                 ))}
             </div>
         </div>

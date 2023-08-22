@@ -4,13 +4,14 @@ import Link from "next/link";
 interface Props {
     id: string;
     name: string;
+    imageUrl: string;
 }
 
-const Card: React.FC<Props> = ({ id, name }) => (
+const Card: React.FC<Props> = ({ id, name, imageUrl }) => (
     <Link className="flex flex-col gap-4 shrink-0" href={`/movies/${id}`}>
         <Image
             className="h-40 w-56 object-cover -scale-x-100 object-right rounded-lg shadow-lg"
-            src="/images/interstellar-movie.jpg"
+            src={imageUrl}
             alt="Interstellar Hero Image"
             width={3840}
             height={2160}
