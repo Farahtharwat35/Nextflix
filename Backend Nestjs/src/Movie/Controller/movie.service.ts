@@ -5,7 +5,7 @@ import { Movies } from '../Model/movie.schema';
 
 @Injectable()
 export class MoviesService {
-  constructor(@InjectModel(Movies.name) private moviesModel: Model<Movies>) {}
+  constructor(@InjectModel(Movies.name) private moviesModel: Model<Movies>) { }
 
   async createMovie(movieData: Partial<Movies>): Promise<Movies> {
     const newMovie = new this.moviesModel(movieData);
@@ -22,6 +22,10 @@ export class MoviesService {
       throw new NotFoundException('Movie not found');
     }
     return movie;
+  }
+
+  async getMediaId(id: string): Promise<Movies | null> {
+    return await this.moviesModel.findById(id).exec();
   }
 
   async updateMovie(id: string, movieData: Partial<Movies>): Promise<Movies> {

@@ -19,7 +19,10 @@ export class WatchHistoryController {
 			userId: string
 		},
 		@Request() req
-	): Promise<any> {
+	): Promise<{
+		error: boolean;
+		info: string;
+	}> {
 		return this.watchHistoryService.watch(body.userId,
 			id,
 			req.user.sub);

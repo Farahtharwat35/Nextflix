@@ -24,12 +24,8 @@ export class EpisodeService {
     return episode;
   }
 
-  async getEpisodeByMediaId(id: string): Promise<Episode> {
-    const episode = await this.episodeModel.findOne({ media: id }).exec();
-    if (!episode) {
-      throw new NotFoundException('Episode not found');
-    }
-    return episode;
+  async getMediaId(id: string): Promise<Episode | null> {
+    return await this.episodeModel.findById(id).exec();
   }
 
   async updateEpisode(id: string, episodeData: Partial<Episode>): Promise<Episode> {
