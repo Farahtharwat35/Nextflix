@@ -5,24 +5,22 @@ import { MovieData } from "..";
 const MoviesPage = () => {
     const [movies, setMovies] = useState<MovieData[]>([]);
     const auth = useAppSelector((a) => a.auth);
+    
+    const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
-        const fetchMovies = async () => {
-            if (!auth) return;
-            try {
-                const response = await fetch("/api/movies", {
-                    headers: {
-                        authorization: auth.accessToken,
-                    },
-                });
-				const res = await response.json();
-                setMovies(res);
-            } catch (error) {
-                console.error("Error fetching movies:", error);
-            }
-        };
-        fetchMovies();
+        console.log(auth?.accessToken)
+            auth &&
+            fetch(`http://localhost:3001/movies`, {
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((res) => console.log(res));
     }, [auth]);
+
+	useEffect(() => {}, [])
 
     const handleAddMovie = async () => {
         const movieData = {

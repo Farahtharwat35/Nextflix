@@ -3,6 +3,7 @@ import { MoviesService } from '../Controller/movie.service';
 import { Movies } from '../Model/movie.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
 import { Roles } from '../../Middlewares/roles.decorator';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('movies')
 export class MoviesController {
@@ -16,7 +17,7 @@ export class MoviesController {
   }
 
   @Get()
-  @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard,AuthGuard)
   @Roles('Admin', 'Watcher')
   async getAllMovies(): Promise<Movies[]> {
     return this.moviesService.getAllMovies();
