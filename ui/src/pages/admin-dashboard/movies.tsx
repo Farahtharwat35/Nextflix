@@ -118,7 +118,7 @@ const MoviesPage = () => {
                     value={videoTrailer}
                     onChange={(e) => setVideoTrailer(e.target.value)}
                 />
-                <button type="submit">Add Movie</button>
+                <button type="submit" className="bg-white/10 border-white px-4 py-1 border-solid border-2 rounded-full">Add Movie</button>
             </form>
             <div className="my-10">
 

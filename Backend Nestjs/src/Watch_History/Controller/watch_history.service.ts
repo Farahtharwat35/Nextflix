@@ -55,7 +55,7 @@ export class WatchHistoryService {
 		const movie = await this.movieService.getMediaId(mediaId);
 		if (movie) {
 			movie.views++;
-			await movie.save()
+			await movie.save();
 			await this.watchHistoryModel.create({
 				user,
 				media: movie

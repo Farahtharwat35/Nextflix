@@ -25,7 +25,7 @@ const Home: React.FC = () => {
     const auth = useAppSelector((a) => a.auth);
 
     useEffect(() => {
-        auth && fetch("http://127.0.0.1:3001/movies", {
+        auth && fetch("http://127.0.0.1:3001/watch-history/top", {
             headers: {
 				authorization: `Bearer ${auth.accessToken}`
             },

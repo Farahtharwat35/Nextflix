@@ -23,6 +23,22 @@ const Movie = () => {
                 .then((res) => setMedia(res));
     }, [router.query.id, auth]);
 
+    useEffect(() => {
+        auth &&
+            media &&
+            auth.currentUser &&
+            fetch(`http://127.0.0.1:3001/watch-history/${media._id}`, {
+				method: "POST",
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: auth.currentUser.id,
+                }),
+            }).then((res) => res.json());
+    }, [auth, media]);
+
     return (
         <div className="h-screen box-border flex flex-col gap-4 overflow-y-auto bg-black">
             <nav className="fixed pl-20 top-0 left-0 right-0 h-16 bg-black flex gap-4 items-center">
