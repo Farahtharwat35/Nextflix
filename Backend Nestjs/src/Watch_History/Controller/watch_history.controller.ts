@@ -3,6 +3,7 @@ import { Roles } from "src/Middlewares/roles.decorator";
 import { RolesGuard } from "src/Middlewares/roles.guard";
 import { AuthGuard } from "src/auth/auth.guard";
 import { WatchHistoryService } from "./watch_history.service";
+import { Movies } from "src/Movie/Model/movie.schema";
 
 @Controller('watch-history')
 export class WatchHistoryController {
@@ -41,5 +42,11 @@ export class WatchHistoryController {
 		name: string;
 	}[]> {
 		return this.watchHistoryService.getHistory(body.userId, req.user.id);
+	}
+
+	@Get("/top")
+	async topMovies(
+	): Promise<Movies[]> {
+		return this.watchHistoryService.getTopFilms(3);
 	}
 }

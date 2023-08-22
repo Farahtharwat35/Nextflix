@@ -5,6 +5,7 @@ import { EpisodeService } from 'src/Episode/Controller/episode.service';
 import { MoviesService } from 'src/Movie/Controller/movie.service';
 import { WatchHistory } from '../Model/watch_history.schema';
 import { Model } from 'mongoose';
+import { Movies } from 'src/Movie/Model/movie.schema';
 
 @Injectable()
 export class WatchHistoryService {
@@ -15,6 +16,18 @@ export class WatchHistoryService {
 		private readonly movieService: MoviesService
 
 	) { }
+
+	async getTopFilms(limit: number): Promise<Movies[]> {
+		const movies = await this.movieService.getAllMovies();
+
+		const topFilmIds = movies.map(item => item._id);
+
+		// Fetch the movies based on the top film IDs
+		const topMovies = await this.movieService.getMoviesByIds(topFilmIds);
+
+		return topMovies;
+	}
+
 
 	async getHistory(userId: string, accountId: string): Promise<{ date: Date; name: string }[]> {
 		const users = await this.accountService.findAccountUsers(accountId);
@@ -41,6 +54,8 @@ export class WatchHistoryService {
 		const episode = await this.episodeService.getMediaId(mediaId);
 		const movie = await this.movieService.getMediaId(mediaId);
 		if (movie) {
+			movie.views++;
+			await movie.save()
 			await this.watchHistoryModel.create({
 				user,
 				media: movie
@@ -51,6 +66,8 @@ export class WatchHistoryService {
 			};
 		}
 		else if (episode) {
+			episode.views++;
+			await episode.save()
 			await this.watchHistoryModel.create({
 				user,
 				media: episode
@@ -65,6 +82,5 @@ export class WatchHistoryService {
 				info: "Cannot find Media"
 			};
 		}
-
 	}
 }

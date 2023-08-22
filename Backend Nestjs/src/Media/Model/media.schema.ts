@@ -15,7 +15,7 @@ export class Media extends Document {
   @Prop({ required: true })
   author: string;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   reviews: Review[];
 
   @Prop({ required: true })
@@ -30,6 +30,8 @@ export class Media extends Document {
   @Prop()
   videoTrailer: string; // URL to the video/trailer
 
+  @Prop()
+  views: number; // URL to the video/trailer
 }
 
 export const MediaSchema = SchemaFactory.createForClass(Media);
