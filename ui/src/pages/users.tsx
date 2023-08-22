@@ -1,4 +1,4 @@
-import { selectUser } from "@/app/authSlice";
+import { logout, selectUser } from "@/app/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import Avatar from "boring-avatars";
 import Link from "next/link";
@@ -86,7 +86,10 @@ const Users = () => {
                 ))}
             </div>
             <div className="flex gap-4">
-                <button className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition-colors ease-in border-solid border-2 border-white/10 hover:border-white/30">
+                <button className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition-colors ease-in border-solid border-2 border-white/10 hover:border-white/30" onClick={() => {
+					dispatch(logout())
+					router.push("/login")
+				}}>
                     Sign Out
                 </button>
                 {users.length < 5 && (

@@ -8,9 +8,12 @@ import {
 import SidebarButton from "./sidebar/sidebarBtn";
 import Avatar from "boring-avatars";
 import { useRouter } from "next/router";
+import { useAppSelector } from "@/app/hooks";
+import Link from "next/link";
 
 const Sidebar = () => {
     const router = useRouter();
+    const auth = useAppSelector((a) => a.auth);
 
     return (
         <div className="fixed top-0 left-0 h-full box-border w-20 bg-slate-950 pb-8 flex flex-col gap-16 items-center z-40">
@@ -47,22 +50,28 @@ const Sidebar = () => {
                     <Cog6ToothIcon className="w-6 h-6 stroke-inherit transition-all ease-in" />
                 </SidebarButton>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 h-20 flex items-center justify-center">
-                <div className="w-12 p-1 border-solid border-2 border-indigo-700 rounded-full">
-                    <Avatar
-                        size="100%"
-                        name="Etsh"
-                        variant="beam"
-                        colors={[
-                            "#92A1C6",
-                            "#146A7C",
-                            "#F0AB3D",
-                            "#C271B4",
-                            "#C20D90",
-                        ]}
-                    />
+            <Link href="/users">
+                <div className="absolute bottom-0 left-0 right-0 h-20 flex items-center justify-center">
+                    <div className="w-12 p-1 border-solid border-2 border-indigo-700 rounded-full">
+                        <Avatar
+                            size="100%"
+                            name={
+                                auth && auth.currentUser
+                                    ? auth.currentUser.name
+                                    : "Temp"
+                            }
+                            variant="beam"
+                            colors={[
+                                "#92A1C6",
+                                "#146A7C",
+                                "#F0AB3D",
+                                "#C271B4",
+                                "#C20D90",
+                            ]}
+                        />
+                    </div>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 };

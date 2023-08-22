@@ -11,9 +11,6 @@ const Movies = () => (
             <FilmIcon className="w-10 h-10 stroke-white" />
             <h1 className="text-4xl font-bold">Movies</h1>
         </div>
-        <CardsRow />
-        <CardsRow />
-        <CardsRow />
     </div>
 );
 
