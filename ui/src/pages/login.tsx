@@ -18,13 +18,30 @@ const Login = () => {
         setSubmitting(true);
         setError("");
         setTimeout(() => {
-            setSubmitting(false);
-            if (email === "1@x.com" && pass === "2") {
-                router.push("/");
-            } else {
-                setError("Invalid Login, Please try again.");
-            }
-        }, 5000);
+            fetch("http://localhost:3001/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    password: pass,
+                }),
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.access_token) {
+                        window.localStorage.setItem(
+                            "accessToken",
+                            res.access_token
+                        );
+                        router.push("/users");
+                    } else {
+                        setError("Invalid Login, Please try again.");
+                    }
+                    setSubmitting(false);
+                }).catch(err => setSubmitting(false));
+        }, 1000);
     };
 
     return (
@@ -83,7 +100,7 @@ const Login = () => {
                                 <InputField
                                     label="Email"
                                     id="email"
-                                    type="email"
+                                    type="text"
                                     onChange={setEmail}
                                     value={email}
                                 />

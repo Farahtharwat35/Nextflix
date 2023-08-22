@@ -2,11 +2,17 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AccountService } from 'src/Account/Controller/account.service';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from 'src/Account/Controller/interface/jwtPayload.interface';
+import { AccountDocument } from 'src/Account/Model/account.schema';
 
 @Injectable()
 export class AuthService {
 	constructor(private accountService: AccountService,
 		private jwtService: JwtService) { }
+
+	async getUser(id: string): Promise<AccountDocument> {
+		const account = await this.accountService.findOne(id);
+		return account;
+	}
 
 	async signIn(email: string, pass: string): Promise<{ access_token: string }> {
 		const account = await this.accountService.findOneByEmail(email);

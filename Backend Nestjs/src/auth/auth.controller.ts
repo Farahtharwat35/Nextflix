@@ -36,6 +36,7 @@ export class AuthController {
 	@UseGuards(AuthGuard)
 	@Get('about-me')
 	aboutMe(@Request() req) {
-		return req.user.id;
+		console.log(req.user.id)
+		return this.authService.getUser(req.user.id);
 	}
 }

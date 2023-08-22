@@ -33,9 +33,7 @@ export class MoviesService {
 
     for (const id of ids) {
       const movie = await this.moviesModel.findById(id).exec();
-      if (movie) {
-        movies.push(movie);
-      }
+      if (movie) movies.push(movie);
     }
 
     movies.sort((a, b) => {

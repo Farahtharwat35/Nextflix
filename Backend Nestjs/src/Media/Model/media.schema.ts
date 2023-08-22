@@ -33,7 +33,7 @@ export class Media extends Document {
   videoTrailer: string; // URL to the video/trailer
 
   @Prop()
-  views: number; // URL to the video/trailer
+  views: number;
 }
 
 export const MediaSchema = SchemaFactory.createForClass(Media);
