@@ -15,6 +15,23 @@ export class WatchListService {
 		private readonly movieService: MoviesService
 	) { }
 
+	async getList(userId: string, accountId: string): Promise<{ name: string }[]> {
+		const users = await this.accountService.findAccountUsers(accountId);
+		const user = users.find(u => {
+			return u._id.toString() === userId
+		});
+		if (!user) {
+			return
+		}
+		const data = await this.watchListModel.find({ user: user._id }).exec();
+
+		// GET MEDIA: Either Episode or Movie
+
+		return data.map(wh => ({
+			name: wh.media._id.toString(),
+		}));
+	}
+
 	async addToList(userId: string, mediaId: string,
 		accountId: string): Promise<{
 			error: boolean;

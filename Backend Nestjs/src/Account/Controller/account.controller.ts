@@ -46,7 +46,7 @@ export class AccountController {
   @UseGuards(RolesGuard, AuthGuard)
   @Roles('Admin', 'Watcher')
   async getAccountUsers(@Request() req): Promise<User[]> {
-    return await this.AccountService.findAccountUsers(req.user.sub);
+    return await this.AccountService.findAccountUsers(req.user.id);
   }
 
   @Post("users")
@@ -54,7 +54,7 @@ export class AccountController {
   @Roles('Admin', 'Watcher')
   async addAccountUser(@Body() body: { name: string }, @Request() req): Promise<{ error: boolean; info: string }> {
     const res = await this.AccountService.createUser({
-      accountId: req.user.sub,
+      accountId: req.user.id,
       name: body.name
     });
     if (res.error)
