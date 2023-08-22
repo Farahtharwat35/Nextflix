@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { IsEmail, IsNotEmpty } from 'class-validator';
 import mongoose, { HydratedDocument } from 'mongoose';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, IsStrongPassword } from 'class-validator';
 import { User } from 'src/User/Model/user.schema';
 
 export type AccountDocument = HydratedDocument<Account>;
@@ -21,10 +21,12 @@ export class Account {
 
     @Prop()
     @IsNotEmpty()
-    password: string
-
+    @IsStrongPassword()
+    password: string 
+    
     @Prop()
     @IsNotEmpty()
+    @IsPhoneNumber()
     phoneNo: string
 
     @Prop()

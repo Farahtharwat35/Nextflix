@@ -16,7 +16,6 @@ export class AccountController {
   @UseGuards(RolesGuard)
   @Roles("Admin")
   async createAccount(@Body() accountData: Account): Promise<Account> {
-    Logger.error("Hot reload")
     return this.AccountService.create(accountData);
   }
 

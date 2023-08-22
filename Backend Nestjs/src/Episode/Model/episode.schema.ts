@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsUrl } from 'class-validator';
 import mongoose from 'mongoose';
 import { Media } from 'src/Media/Model/media.schema';
 
@@ -20,6 +21,7 @@ export class Episode extends Media {
   duration: number;
 
   @Prop({ required: true })
+  @IsUrl()
   url: string;
 }
 
