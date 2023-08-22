@@ -25,9 +25,9 @@ const DashboardPage = () => {
             </div>
             <nav className="flex justify-around">
                 <Link href="/admin-dashboard/accounts">Manage Accounts</Link>
-                <Link href="/admin-dashboard/users">Manage Users</Link>
+                {/* <Link href="/admin-dashboard/users">Manage Users</Link> */}
                 <Link href="/admin-dashboard/movies">Manage Movies</Link>
-                <Link href="/admin-dashboard/series">Manage Series</Link>
+                {/* <Link href="/admin-dashboard/series">Manage Series</Link> */}
             </nav>
         </div>
     );

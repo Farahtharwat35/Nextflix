@@ -159,7 +159,38 @@ const AccountsPage = () => {
                         <div>{a.phoneNo}</div>
                         <div>{a.subscription}</div>
                         <div>{a.type}</div>
-                        <div className="text-blue-600">Edit</div>
+                        <div
+                            className="text-rose-600 cursor-pointer"
+                            onClick={async () => {
+                                if (!auth)
+                                    return;
+
+                                const res = await fetch(
+                                    `http://localhost:3001/Accounts/update/${a._id}`,
+                                    {
+                                        headers: {
+                                            authorization: `Bearer ${auth.accessToken}`,
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            name: name,
+                                            email: email,
+                                            users: [],
+                                            password: password,
+                                            phoneNo,
+                                            subscription: subscription,
+                                            type: type,
+                                        }),
+                                        method: "POST",
+                                    }
+                                );
+
+                                await res.json();
+								refresh();
+                            }}
+                        >
+                            Edit
+                        </div>
                         <div
                             className="text-rose-600 cursor-pointer"
                             onClick={async () => {

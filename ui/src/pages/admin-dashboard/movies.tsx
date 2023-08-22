@@ -18,10 +18,11 @@ const MoviesPage = () => {
                 },
             })
                 .then((res) => res.json())
-                .then((res) => console.log(res));
+                .then((res) => {
+                    console.log(res)
+                    setMovies(res)});
     }, [auth]);
 
-	useEffect(() => {}, [])
 
     const handleAddMovie = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
