@@ -5,7 +5,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from 'src/User/user.module';
 import { AccountModule } from 'src/Account/account.module';
 import { EpisodeModule } from 'src/Episode/episode.module';
-import { MediaModule } from 'src/Media/media.module';
 import { MoviesModule } from 'src/Movie/movie.model';
 import { SeasonModule } from 'src/Season/season.module';
 import { SeriesModule } from 'src/Series/series.module';
@@ -20,7 +19,6 @@ import { WatchHistoryModule } from 'src/Watch_History/watch_history.module';
     UserModule,
     AccountModule,
     EpisodeModule,
-    MediaModule,
     MoviesModule,
     SeasonModule,
     SeriesModule,
