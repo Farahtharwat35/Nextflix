@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             <Sidebar />
             <Navbar />
             <Hero />
-            <CardsRow movies={data} />
+            <CardsRow movies={data.slice(0, 10)} />
         </div>
     );
 };
