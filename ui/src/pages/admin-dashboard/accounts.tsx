@@ -38,7 +38,16 @@ const AccountsPage = () => {
                 .then((res) => setAccounts(res));
     }, [auth]);
 
-    useEffect(() => {}, []);
+    const refresh = () => {
+        auth &&
+            fetch(`http://localhost:3001/Accounts`, {
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((res) => setAccounts(res));
+    };
 
     const handleAddAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -51,28 +60,20 @@ const AccountsPage = () => {
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    name: "kled",
-
-                    email: "led",
+                    name: name,
+                    email: email,
                     users: [],
-
-                    password: "1222",
-                    phoneNo: "dlajdklsaj",
-                    subscription: "Platinum",
-                    type: "Admin",
+                    password: password,
+                    phoneNo,
+                    subscription: subscription,
+                    type: type,
                 }),
             });
 
             await res.json();
 
-            auth &&
-                fetch(`http://localhost:3001/Accounts`, {
-                    headers: {
-                        authorization: `Bearer ${auth.accessToken}`,
-                    },
-                })
-                    .then((res) => res.json())
-                    .then((res) => setAccounts(res));
+            refresh();
+
             // Reset the form fields
             setName("");
             setEmail("");
@@ -89,10 +90,7 @@ const AccountsPage = () => {
     return (
         <div className="p-12">
             <h1>Manage Accounts</h1>
-            <form
-                onSubmit={handleAddAccount}
-                className="grid grid-cols-7"
-            >
+            <form onSubmit={handleAddAccount} className="grid grid-cols-7">
                 <input
                     type="text"
                     placeholder="Name"
@@ -161,8 +159,30 @@ const AccountsPage = () => {
                         <div>{a.phoneNo}</div>
                         <div>{a.subscription}</div>
                         <div>{a.type}</div>
-                        <div>Edit</div>
-                        <div>Delete</div>
+                        <div className="text-blue-600">Edit</div>
+                        <div
+                            className="text-rose-600 cursor-pointer"
+                            onClick={async () => {
+                                if (!auth)
+                                    return;
+
+                                const res = await fetch(
+                                    `http://localhost:3001/Accounts/delete/${a._id}`,
+                                    {
+                                        headers: {
+                                            authorization: `Bearer ${auth.accessToken}`,
+                                            "Content-Type": "application/json",
+                                        },
+                                        method: "POST",
+                                    }
+                                );
+
+                                await res.json();
+								refresh();
+                            }}
+                        >
+                            Delete
+                        </div>
                     </div>
                 ))}
             </div>
