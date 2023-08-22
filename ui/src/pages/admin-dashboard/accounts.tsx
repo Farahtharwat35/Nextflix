@@ -24,12 +24,11 @@ const AccountsPage = () => {
     const [phoneNo, setPhoneNo] = useState("");
     const [subscription, setSubscription] = useState("");
     const [type, setType] = useState("");
-	const auth = useAppSelector(a => a.auth)
-
-    const [accounts, setAccounts] = useState([]);
+    const auth = useAppSelector((a) => a.auth);
+    const [accounts, setAccounts] = useState<AccountData[]>([]);
 
     useEffect(() => {
-            auth &&
+        auth &&
             fetch(`http://localhost:3001/Accounts`, {
                 headers: {
                     authorization: `Bearer ${auth.accessToken}`,
@@ -39,26 +38,41 @@ const AccountsPage = () => {
                 .then((res) => setAccounts(res));
     }, [auth]);
 
-	useEffect(() => {}, [])
+    useEffect(() => {}, []);
 
-    const handleAddAccount = async (e) => {
+    const handleAddAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        if (!auth) return;
         try {
-            const accountData = {
-                name,
-                email,
-                password,
-                phoneNo,
-                subscription,
-                type,
-            };
+            const res = await fetch("http://localhost:3001/Accounts", {
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    name: "kled",
 
-            const response = await axios.post("/api/accounts", accountData);
+                    email: "led",
+                    users: [],
 
-            // Handle the response from the backend
-            console.log(response.data); // Assuming the backend returns the created account
+                    password: "1222",
+                    phoneNo: "dlajdklsaj",
+                    subscription: "Platinum",
+                    type: "Admin",
+                }),
+            });
 
+            await res.json();
+
+            auth &&
+                fetch(`http://localhost:3001/Accounts`, {
+                    headers: {
+                        authorization: `Bearer ${auth.accessToken}`,
+                    },
+                })
+                    .then((res) => res.json())
+                    .then((res) => setAccounts(res));
             // Reset the form fields
             setName("");
             setEmail("");
@@ -75,7 +89,10 @@ const AccountsPage = () => {
     return (
         <div className="p-12">
             <h1>Manage Accounts</h1>
-            <form onSubmit={handleAddAccount} className="grid grid-cols-7">
+            <form
+                onSubmit={handleAddAccount}
+                className="grid grid-cols-7"
+            >
                 <input
                     type="text"
                     placeholder="Name"
@@ -128,6 +145,27 @@ const AccountsPage = () => {
                 </select>
                 <button type="submit">Add Account</button>
             </form>
+            <div className="my-10">
+                <div className="grid grid-cols-7">
+                    <div>Name</div>
+                    <div>Email</div>
+                    <div>Phone</div>
+                    <div>Subscription</div>
+                    <div>Type</div>
+                    <div className="text-center col-span-2">Actions</div>
+                </div>
+                {accounts.map((a) => (
+                    <div key={a._id} className="grid grid-cols-7">
+                        <div>{a.name}</div>
+                        <div>{a.email}</div>
+                        <div>{a.phoneNo}</div>
+                        <div>{a.subscription}</div>
+                        <div>{a.type}</div>
+                        <div>Edit</div>
+                        <div>Delete</div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
