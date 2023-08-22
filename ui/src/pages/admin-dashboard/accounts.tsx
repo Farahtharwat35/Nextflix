@@ -51,15 +51,13 @@ const AccountsPage = () => {
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    name: "kled",
-
-                    email: "led",
+                    name: name,
+                    email: email,
                     users: [],
-
-                    password: "1222",
-                    phoneNo: "dlajdklsaj",
-                    subscription: "Platinum",
-                    type: "Admin",
+                    password: password,
+                    phoneNo,
+                    subscription: subscription,
+                    type: type,
                 }),
             });
 
