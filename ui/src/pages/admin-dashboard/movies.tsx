@@ -4,9 +4,10 @@ import { MovieData } from "..";
 
 const MoviesPage = () => {
     const [movies, setMovies] = useState<MovieData[]>([]);
+    const [name, setName] = useState("");
+    const [url, setURL] = useState("");
+    const [videoTrailer, setVideoTrailer] = useState("");
     const auth = useAppSelector((a) => a.auth);
-    
-    const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
         console.log(auth?.accessToken)
@@ -22,16 +23,45 @@ const MoviesPage = () => {
 
 	useEffect(() => {}, [])
 
-    const handleAddMovie = async () => {
-        const movieData = {
-            // Provide movie data here (name, author, reviews, poster, etc.)
-        };
-
+    const handleAddMovie = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!auth) return;
         try {
-            // const response = await axios.post("/api/movies", movieData);
-            // fetchMovies(); // Refresh movie list after adding
+            const res = await fetch("http://localhost:3001/Accounts", {
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    name: "kled",
+
+                    email: "led",
+                    users: [],
+
+                    password: "1222",
+                    phoneNo: "dlajdklsaj",
+                    subscription: "Platinum",
+                    type: "Admin",
+                }),
+            });
+
+            await res.json();
+
+            auth &&
+                fetch(`http://localhost:3001/movies`, {
+                    headers: {
+                        authorization: `Bearer ${auth.accessToken}`,
+                    },
+                })
+                    .then((res) => res.json())
+                    .then((res) => setMovies(res));
+            // Reset the form fields
+            setName("");
+            setURL("");
         } catch (error) {
-            console.error("Error adding movie:", error);
+            console.error(error);
+            // Handle error
         }
     };
 
@@ -39,14 +69,47 @@ const MoviesPage = () => {
         <div>
             <h1>Manage Movies</h1>
             <form onSubmit={handleAddMovie}>
-                {/* Add input fields for movie details */}
+                {}
+                <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    className="bg-opacity-0 bg-white"
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                    className="bg-opacity-0 bg-white"
+                    type="text"
+                    placeholder="movie image"
+                    value={url}
+                    onChange={(e) => setURL(e.target.value)}
+                />
+                <input
+                    className="bg-opacity-0 bg-white"
+                    type="text"
+                    placeholder="movie image"
+                    value={videoTrailer}
+                    onChange={(e) => setVideoTrailer(e.target.value)}
+                />
                 <button type="submit">Add Movie</button>
             </form>
-            <ul>
-                {movies.map((movie) => (
-                    <li key={movie._id}>{movie.name}</li>
+            <div className="my-10">
+                <div className="grid grid-cols-7">
+                    <div>Name</div>
+                    <div>Image</div>
+                    <div>Link</div>
+                    <div className="text-center col-span-2">Actions</div>
+                </div>
+                {movies.map((a) => (
+                    <div key={a._id} className="grid grid-cols-7">
+                        <div>{a.name}</div>
+                        <div>{a.url}</div>
+                        <div>{a.videoTrailer}</div>
+                        <div>Edit</div>
+                        <div>Delete</div>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

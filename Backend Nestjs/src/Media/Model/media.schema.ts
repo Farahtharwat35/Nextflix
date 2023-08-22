@@ -13,19 +13,20 @@ export class Media extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop()
   author: string;
 
-  @Prop({ required: true })
+  @Prop()
   reviews: Review[];
 
-  @Prop({ required: true })
+  @Prop()
   poster: string;
 
-  @Prop({ required: true })
+  // @Prop({ required: true })
+  @Prop()
   overview: string;
 
-  @Prop({ required: true })
+  @Prop()
   productionDate: Date;
 
   @Prop()
