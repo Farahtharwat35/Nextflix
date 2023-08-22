@@ -3,14 +3,14 @@ import { Document, Types } from 'mongoose';
 import { Media, MediaSchema } from '../../Media/Model/media.schema';
 
 
-@Schema() 
+@Schema()
 export class Movies extends Media {
 
   @Prop({ required: true })
   duration: number; // Duration in minutes
 
-  @Prop({required:true})
-  url : string 
+  @Prop({ required: true })
+  url: string
 }
 
 export const MoviesSchema = SchemaFactory.createForClass(Movies);

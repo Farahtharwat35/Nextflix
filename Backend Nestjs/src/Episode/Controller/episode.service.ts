@@ -5,7 +5,7 @@ import { Episode } from '../Model/episode.schema';
 
 @Injectable()
 export class EpisodeService {
-  constructor(@InjectModel(Episode.name) private episodeModel: Model<Episode>) {}
+  constructor(@InjectModel(Episode.name) private episodeModel: Model<Episode>) { }
 
   async createEpisode(episodeData: Partial<Episode>): Promise<Episode> {
     const newEpisode = new this.episodeModel(episodeData);
@@ -18,6 +18,14 @@ export class EpisodeService {
 
   async getEpisodeById(id: string): Promise<Episode> {
     const episode = await this.episodeModel.findById(id).exec();
+    if (!episode) {
+      throw new NotFoundException('Episode not found');
+    }
+    return episode;
+  }
+
+  async getEpisodeByMediaId(id: string): Promise<Episode> {
+    const episode = await this.episodeModel.findOne({ media: id }).exec();
     if (!episode) {
       throw new NotFoundException('Episode not found');
     }
@@ -43,5 +51,6 @@ export class EpisodeService {
     if (!specificEpisode) {
       throw new NotFoundException('Specific episode not found');
     }
-    return specificEpisode; }
+    return specificEpisode;
+  }
 }

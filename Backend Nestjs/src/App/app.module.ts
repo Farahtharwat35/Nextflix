@@ -10,6 +10,7 @@ import { MoviesModule } from 'src/Movie/movie.model';
 import { SeasonModule } from 'src/Season/season.module';
 import { SeriesModule } from 'src/Series/series.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { WatchHistoryModule } from 'src/Watch_History/watch_history.module';
 
 @Module({
   //imports: [MongooseModule.forRoot('mongodb://127.0.0.1:27017/nextflix')]
@@ -23,7 +24,8 @@ import { AuthModule } from 'src/auth/auth.module';
     MoviesModule,
     SeasonModule,
     SeriesModule,
-    AuthModule
+    AuthModule,
+    WatchHistoryModule
   ]
 })
 export class AppModule { }

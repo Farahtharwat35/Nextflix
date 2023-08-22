@@ -23,6 +23,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res = await fetch("http://127.0.0.1:3001/movies");
     const data = await res.json();
 
+	console.log(data)
+
     return {
         props: { data },
     };

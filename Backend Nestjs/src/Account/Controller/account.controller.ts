@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseGuards, Logger, Param, Request } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards, Logger, Param, Request, BadRequestException } from '@nestjs/common';
 import { Account } from '../Model/account.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
 import { Roles } from '../../Middlewares/roles.decorator';
@@ -53,9 +53,13 @@ export class AccountController {
   @UseGuards(RolesGuard, AuthGuard)
   @Roles('Admin', 'Watcher')
   async addAccountUser(@Body() body: { name: string }, @Request() req): Promise<{ error: boolean; info: string }> {
-    return await this.AccountService.createUser({
+    const res = await this.AccountService.createUser({
       accountId: req.user.sub,
       name: body.name
     });
+    if (res.error)
+      throw new BadRequestException(res);
+
+    return res;
   }
 }
