@@ -15,24 +15,26 @@ const Auth: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         const accessToken = window.localStorage.getItem("accessToken");
-        if (accessToken) {
+        if (accessToken && auth === null) {
             dispatch(login({ accessToken }));
         }
-    }, [dispatch]);
+    }, [dispatch, auth]);
 
     useEffect(() => {
-        const x = setTimeout(() => {
-            if (auth === null) {
-                router.pathname !== "/login" &&
-                    router.pathname !== "/register" &&
-                    router.push("/login");
-            } else if (!auth.currentUser) {
-                router.push("/users");
-            }
-			!isReady && setReady(true)
-        }, 5000);
+        if (!isReady) {
+            const x = setTimeout(() => {
+                if (auth === null) {
+                    router.pathname !== "/login" &&
+                        router.pathname !== "/register" &&
+                        router.push("/login");
+                } else if (!auth.currentUser) {
+                    router.push("/users");
+                }
+                !isReady && setReady(true);
+            }, 5000);
 
-        return () => clearTimeout(x);
+            return () => clearTimeout(x);
+        }
     }, [auth, router, isReady]);
 
     if (isReady) {

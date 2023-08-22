@@ -1,5 +1,6 @@
 import { useAppSelector } from "@/app/hooks";
 import Avatar from "boring-avatars";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Users = () => {
@@ -62,9 +63,18 @@ const Users = () => {
                     </div>
                 ))}
             </div>
-            <button className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition-colors ease-in border-solid border-2 border-white/10 hover:border-white/30">
-                Sign Out
-            </button>
+            <div className="flex gap-4">
+                <button className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition-colors ease-in border-solid border-2 border-white/10 hover:border-white/30">
+                    Sign Out
+                </button>
+				{users.length < 5 &&
+				<Link href="/users/add">
+                <button className="rounded-full px-6 py-2 bg-white/0 hover:bg-white/5 transition-colors ease-in border-solid border-2 border-white/40 hover:border-white/100 text-white/80 hover:text-white">
+                    Add User
+                </button>
+				</Link>
+				}
+            </div>
         </div>
     );
 };
