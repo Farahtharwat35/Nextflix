@@ -8,8 +8,12 @@ export class MoviesService {
   constructor(@InjectModel(Movies.name) private moviesModel: Model<Movies>) { }
 
   async createMovie(movieData: Partial<Movies>): Promise<Movies> {
-    const newMovie = new this.moviesModel(movieData);
-    return newMovie.save();
+    const url = movieData.url
+    const res = await this.moviesModel.findOne({ "url": url })
+    if (res == null) {
+      const newMovie = new this.moviesModel(movieData);
+      return newMovie.save();
+    }
   }
 
   async getAllMovies(): Promise<Movies[]> {

@@ -13,8 +13,12 @@ export class AccountService {
   ) { }
 
   async create(accountData: Account): Promise<AccountDocument> {
-    const newAccount = await this.accountModel.create(accountData);
-    return newAccount;
+    const email = accountData.email
+    const res = await this.accountModel.findOne({ "email": email })
+    if (res == null) {
+      const newAccount = await this.accountModel.create(accountData);
+      return newAccount;
+    }
   }
 
   async update(id: string, accountData: Account) {

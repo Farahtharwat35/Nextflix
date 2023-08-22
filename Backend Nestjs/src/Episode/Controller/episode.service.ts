@@ -8,8 +8,12 @@ export class EpisodeService {
   constructor(@InjectModel(Episode.name) private episodeModel: Model<Episode>) { }
 
   async createEpisode(episodeData: Partial<Episode>): Promise<Episode> {
-    const newEpisode = new this.episodeModel(episodeData);
-    return newEpisode.save();
+    const url = episodeData.url
+    const res = await this.episodeModel.findOne({ "url": url })
+    if (res == null) {
+      const newEpisode = new this.episodeModel(episodeData);
+      return newEpisode.save();
+    }
   }
 
   async getAllEpisodes(): Promise<Episode[]> {
