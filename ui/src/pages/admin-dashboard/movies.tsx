@@ -48,8 +48,6 @@ const MoviesPage = () => {
                     name: name,
                     url: url,
                     videoTrailer: videoTrailer
-
-                    
 ,
                 }),
             });
@@ -90,14 +88,14 @@ const MoviesPage = () => {
                 <input
                     className="bg-opacity-0 bg-white"
                     type="text"
-                    placeholder="movie image"
+                    placeholder="movie trailer"
                     value={url}
                     onChange={(e) => setURL(e.target.value)}
                 />
                 <input
                     className="bg-opacity-0 bg-white"
                     type="text"
-                    placeholder="Video trailer"
+                    placeholder="movie image"
                     value={videoTrailer}
                     onChange={(e) => setVideoTrailer(e.target.value)}
                 />
@@ -106,8 +104,8 @@ const MoviesPage = () => {
             <div className="my-10">
                 <div className="grid grid-cols-7">
                     <div>Name</div>
+                    <div>Video</div>
                     <div>Image</div>
-                    <div>Link</div>
                     <div className="text-center col-span-2">Actions</div>
                 </div>
                 {movies.map((a) => (
