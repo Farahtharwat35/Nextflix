@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsUrl } from 'class-validator';
 import { Document, Types } from 'mongoose';
 
 export type Review = {
@@ -28,6 +29,7 @@ export class Media extends Document {
   productionDate: Date;
 
   @Prop()
+  @IsUrl()
   videoTrailer: string; // URL to the video/trailer
 
 }
