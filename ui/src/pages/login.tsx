@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "@/app/hooks";
+import { login } from "@/app/authSlice";
 
 const Login = () => {
     const router = useRouter();
@@ -12,6 +14,7 @@ const Login = () => {
     const [pass, setPass] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState("");
+	const dispatch = useAppDispatch();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -35,6 +38,7 @@ const Login = () => {
                             "accessToken",
                             res.access_token
                         );
+						dispatch(login(res.access_token))
                         router.push("/users");
                     } else {
                         setError("Invalid Login, Please try again.");

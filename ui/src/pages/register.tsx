@@ -4,12 +4,50 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useAppDispatch } from "@/app/hooks";
+import { login } from "@/app/authSlice";
+import { useRouter } from "next/router";
 
 const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [passCon, setPassCon] = useState("");
+    const [phone, setPhoneNo] = useState("");
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setTimeout(() => {
+            fetch("http://localhost:3001/auth/sign-up", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    name,
+                    password: pass,
+                    phoneNo: phone,
+                    subscription: "Platinum",
+                }),
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.access_token) {
+                        window.localStorage.setItem(
+                            "accessToken",
+                            res.access_token
+                        );
+                        dispatch(login(res.access_token));
+                        router.push("/users");
+                    } else {
+                    }
+                })
+                .catch((err) => {});
+        }, 1000);
+    };
 
     return (
         <motion.div className="h-screen max-h-full p-4 lg:p-6 flex">
@@ -54,7 +92,7 @@ const Register = () => {
                                 </p>
                             </div>
 
-                            <form className="flex flex-col gap-2">
+                            <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
                                 <InputField
                                     label="Name"
                                     id="name"
@@ -82,6 +120,13 @@ const Register = () => {
                                     type="password"
                                     onChange={setPassCon}
                                     value={passCon}
+                                />
+                                <InputField
+                                    label="Phone"
+                                    id="phone"
+                                    type="text"
+                                    onChange={setPhoneNo}
+                                    value={phone}
                                 />
                                 <button
                                     className={`${"bg-indigo-600"} py-1 rounded-full border-indigo-500 border-2 border-solid mt-2 flex justify-center items-center h-8 box-content`}

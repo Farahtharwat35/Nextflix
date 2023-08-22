@@ -1,6 +1,8 @@
-import { useAppSelector } from "@/app/hooks";
+import { selectUser } from "@/app/authSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import Avatar from "boring-avatars";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Users = () => {
@@ -11,19 +13,27 @@ const Users = () => {
         }[]
     >();
     const auth = useAppSelector((s) => s.auth);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
     useEffect(() => {
-        auth &&
-            fetch("http://localhost:3001/Accounts/users", {
-                method: "GET",
-                headers: {
-                    authorization: `Bearer ${auth.accessToken}`,
-                },
-            })
-                .then((res) => res.json())
-                .then((res) =>
-                    setUsers(res.map((i: any) => ({ id: i._id, name: i.name })))
-                );
+        if (auth) {
+            if (!auth.accessToken) {
+                window.location.reload();
+            } else
+                fetch("http://localhost:3001/Accounts/users", {
+                    method: "GET",
+                    headers: {
+                        authorization: `Bearer ${auth.accessToken}`,
+                    },
+                })
+                    .then((res) => res.json())
+                    .then((res) =>
+                        setUsers(
+                            res.map((i: any) => ({ id: i._id, name: i.name }))
+                        )
+                    );
+        }
     }, [auth]);
 
     if (users === undefined) {
@@ -42,7 +52,19 @@ const Users = () => {
             <h2 className="text-4xl">MEEN??</h2>
             <div className="flex gap-8">
                 {users.map((u) => (
-                    <div key={u.id} className="group cursor-pointer">
+                    <div
+                        key={u.id}
+                        className="group cursor-pointer"
+                        onClick={() => {
+                            dispatch(
+                                selectUser({
+                                    name: u.name,
+                                    id: u.id,
+                                })
+                            );
+                            router.push("/");
+                        }}
+                    >
                         <div className="h-20 w-20 border-solid border-2 border-white/0 group-hover:border-white/100 rounded-full transition-all ease-in">
                             <Avatar
                                 size="100%"
@@ -67,13 +89,13 @@ const Users = () => {
                 <button className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 transition-colors ease-in border-solid border-2 border-white/10 hover:border-white/30">
                     Sign Out
                 </button>
-				{users.length < 5 &&
-				<Link href="/users/add">
-                <button className="rounded-full px-6 py-2 bg-white/0 hover:bg-white/5 transition-colors ease-in border-solid border-2 border-white/40 hover:border-white/100 text-white/80 hover:text-white">
-                    Add User
-                </button>
-				</Link>
-				}
+                {users.length < 5 && (
+                    <Link href="/users/add">
+                        <button className="rounded-full px-6 py-2 bg-white/0 hover:bg-white/5 transition-colors ease-in border-solid border-2 border-white/40 hover:border-white/100 text-white/80 hover:text-white">
+                            Add User
+                        </button>
+                    </Link>
+                )}
             </div>
         </div>
     );

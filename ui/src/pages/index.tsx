@@ -1,8 +1,9 @@
+import { useAppSelector } from "@/app/hooks";
 import CardsRow from "@/components/cardsRow";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import { GetServerSideProps } from "next";
+import { useEffect, useState } from "react";
 
 export interface MovieData {
     _id: string;
@@ -19,19 +20,22 @@ export interface MovieData {
     url: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const data: MovieData[]= [];
+const Home: React.FC = () => {
+    const [data, setData] = useState<MovieData[]>([]);
+    const auth = useAppSelector((a) => a.auth);
 
-    return {
-        props: { data },
-    };
-};
+    useEffect(() => {
+        auth && fetch("http://127.0.0.1:3001/movies", {
+            headers: {
+				authorization: `Bearer ${auth.accessToken}`
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                setData(res);
+            });
+    }, [auth]);
 
-interface Props {
-    data: MovieData[];
-}
-
-const Home: React.FC<Props> = ({ data }) => {
     return (
         <div className="h-screen mt-16 ml-20 box-border flex flex-col gap-4 overflow-y-auto pb-8">
             <Sidebar />
