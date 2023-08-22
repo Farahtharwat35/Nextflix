@@ -9,5 +9,6 @@ import { RolesGuard } from '../Middlewares/roles.guard';
   imports: [MongooseModule.forFeature([{ name: Series.name, schema: SeriesSchema }])],
   controllers: [SeriesController],
   providers: [SeriesService, RolesGuard],
+  exports: [SeriesService]
 })
-export class SeriesModule {}
+export class SeriesModule { }
