@@ -14,11 +14,13 @@ export const authSlice = createSlice({
 	initialState: null as state,
 	reducers: {
 		login: (state, action: { payload: { accessToken: string}}) => {
+			console.log("login")
 			return {
 				accessToken: action.payload.accessToken
 			}
 		},
 		selectUser: (state, action: { payload: { name: string, id: string } }) => {
+			console.log("users")
 			return {
 				currentUser: {
 					name: action.payload.name,

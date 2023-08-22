@@ -3,18 +3,25 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MovieData } from "..";
+import { useAppSelector } from "@/app/hooks";
 
 const Movie = () => {
     const [media, setMedia] = useState<MovieData>();
     const router = useRouter();
+    const auth = useAppSelector((a) => a.auth);
 
     useEffect(() => {
         const id = router.query.id;
         id &&
-            fetch(`http://localhost:3001/movies/${id}`)
+            auth &&
+            fetch(`http://localhost:3001/movies/${id}`, {
+                headers: {
+                    authorization: `Bearer ${auth.accessToken}`,
+                },
+            })
                 .then((res) => res.json())
                 .then((res) => setMedia(res));
-    }, [router.query.id]);
+    }, [router.query.id, auth]);
 
     return (
         <div className="h-screen box-border flex flex-col gap-4 overflow-y-auto bg-black">
