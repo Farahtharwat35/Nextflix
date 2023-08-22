@@ -22,13 +22,24 @@ const Auth: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         if (!isReady) {
-            const x = setTimeout(() => {
+            const x = setTimeout(async () => {
                 if (auth === null) {
                     router.pathname !== "/login" &&
                         router.pathname !== "/register" &&
                         router.push("/login");
                 } else if (!auth.currentUser) {
-                    router.push("/users");
+                    const res = await fetch(
+                        "http://localhost:3001/auth/about-me",
+                        {
+                            headers: {
+                                authorization: `Bearer ${auth.accessToken}`,
+                            },
+                        }
+                    );
+                    const data = await res.json();
+                    if (data.type === "Watcher") {
+                        router.push("/users");
+                    } else if(router.pathname !== "/admin-dashboard") router.push("/admin-dashboard");
                 }
                 !isReady && setReady(true);
             }, 5000);
