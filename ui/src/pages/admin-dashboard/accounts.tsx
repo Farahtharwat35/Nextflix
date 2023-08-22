@@ -160,7 +160,7 @@ const AccountsPage = () => {
                         <div>{a.subscription}</div>
                         <div>{a.type}</div>
                         <div
-                            className="text-rose-600 cursor-pointer"
+                            className="text-blue-600 cursor-pointer"
                             onClick={async () => {
                                 if (!auth)
                                     return;

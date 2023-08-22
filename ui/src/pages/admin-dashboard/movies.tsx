@@ -116,7 +116,7 @@ const MoviesPage = () => {
                         <div>{a.url}</div>
                         <div>{a.videoTrailer}</div>
                         <div
-                            className="text-rose-600 cursor-pointer"
+                            className="text-blue-600 cursor-pointer"
                             onClick={async () => {
                                 if (!auth)
                                     return;
