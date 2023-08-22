@@ -21,12 +21,12 @@ export class Account {
 
     @Prop()
     @IsNotEmpty()
-    @IsStrongPassword()
-    password: string 
-    
+    // @IsStrongPassword()
+    password: string
+
     @Prop()
     @IsNotEmpty()
-    @IsPhoneNumber()
+    // @IsPhoneNumber()
     phoneNo: string
 
     @Prop()
