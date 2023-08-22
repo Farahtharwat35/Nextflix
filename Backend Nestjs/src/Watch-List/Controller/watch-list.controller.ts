@@ -25,7 +25,7 @@ export class WatchListController {
 	@Get()
 	@UseGuards(RolesGuard, AuthGuard)
 	@Roles("Watcher")
-	async getUserWatchHistory(
+	async getWatchList(
 		@Body() body: {
 			userId: string
 		},

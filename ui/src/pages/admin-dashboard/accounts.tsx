@@ -1,4 +1,7 @@
 import { useAppSelector } from "@/app/hooks";
+import Sidebar from "@/components/sidebar";
+import { ArrowLeftIcon, FilmIcon, UserIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 interface AccountData {
@@ -88,58 +91,73 @@ const AccountsPage = () => {
     };
 
     return (
-        <div className="p-12">
+        <div className="p-12 ml-20">
+            <Sidebar />
+            <nav className="flex justify-around py-4">
+            <Link href="/admin-dashboard" className="flex gap-2 items-center">
+                    <div><ArrowLeftIcon className="stroke-white w-8 h-8" /></div>
+                    <div>Back</div>
+                </Link>
+                <Link href="/admin-dashboard/accounts" className="flex gap-2 items-center">
+                    <div><UserIcon className="stroke-white w-8 h-8" /></div>
+                    <div>Manage Accounts</div>
+                </Link>
+                <Link href="/admin-dashboard/movies" className="flex gap-2 items-center">
+                    <div><FilmIcon className="stroke-white w-8 h-8" /></div>
+                    <div>Manage Movies</div>
+                </Link>
+            </nav>
             <h1>Manage Accounts</h1>
-            <form onSubmit={handleAddAccount} className="grid grid-cols-7">
+            <form onSubmit={handleAddAccount} className="grid grid-cols-7 gap-1">
                 <input
                     type="text"
                     placeholder="Name"
                     value={name}
-                    className="bg-opacity-0 bg-white"
+                    className="bg-opacity-0 bg-white outline-none"
                     onChange={(e) => setName(e.target.value)}
                 />
                 <input
-                    className="bg-opacity-0 bg-white"
+                    className="bg-opacity-0 bg-white outline-0"
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                    className="bg-opacity-0 bg-white"
+                    className="bg-opacity-0 bg-white outline-0"
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <input
-                    className="bg-opacity-0 bg-white"
+                    className="bg-opacity-0 bg-white outline-0"
                     type="tel"
                     placeholder="Phone No"
                     value={phoneNo}
                     onChange={(e) => setPhoneNo(e.target.value)}
                 />
                 <select
-                    className="bg-opacity-0 bg-white"
+                    className="bg-opacity-0 bg-white outline-none"
                     value={subscription}
                     onChange={(e) => setSubscription(e.target.value)}
                 >
                     <option value="" disabled>
                         Select Subscription
                     </option>
-                    <option value="Normal">Normal</option>
-                    <option value="Platinum">Platinum</option>
+                    <option value="Normal" className="bg-black">Normal</option>
+                    <option value="Platinum" className="bg-black">Platinum</option>
                 </select>
                 <select
                     value={type}
-                    className="bg-opacity-0 bg-white"
+                    className="bg-opacity-0 bg-black"
                     onChange={(e) => setType(e.target.value)}
                 >
                     <option value="" disabled>
                         Select Type
                     </option>
-                    <option value="Watcher">Watcher</option>
-                    <option value="Admin">Admin</option>
+                    <option value="Watcher" className="bg-black">Watcher</option>
+                    <option value="Admin" className="bg-black">Admin</option>
                 </select>
                 <button type="submit">Add Account</button>
             </form>
@@ -186,7 +204,7 @@ const AccountsPage = () => {
                                 );
 
                                 await res.json();
-								refresh();
+                                refresh();
                             }}
                         >
                             Edit
@@ -209,7 +227,7 @@ const AccountsPage = () => {
                                 );
 
                                 await res.json();
-								refresh();
+                                refresh();
                             }}
                         >
                             Delete
