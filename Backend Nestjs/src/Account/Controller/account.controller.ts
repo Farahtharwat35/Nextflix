@@ -23,8 +23,9 @@ export class AccountController {
   async getAllAccounts(): Promise<Account[]> {
     return this.AccountService.findAll();
   }
+/* >> This functions needs to get reviewed ! because we have to decide either we Update Account info or not. Update users info? update what exactly? */
 
-  // @Post("update/:id") ---------- >> This functions needs to get reviewed ! because we have to decide either we Update Account info or not. Update users info? update what exactly?
+  // @Post("update/:id") ---------- 
   // @UseGuards(RolesGuard)
   // @Roles("Watcher", "Admin")
   // async updateAccount(@Param('id') id: string, @Body() accountData: Account) { // was named UpdateUsers ; check its name in front-end
