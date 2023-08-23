@@ -21,7 +21,7 @@ export class AccountService {
     }
   }
 
-  async update(id: string, accountData: Account) {
+  async update(id: string, accountData: Partial <Account>) {
     if (ObjectId.isValid(id)) {
       return this.accountModel.updateOne({ "_id": id }, accountData);
     } else {
@@ -59,7 +59,7 @@ export class AccountService {
       };
     const user = await this.userModel.create({
       account: acc._id,
-      name
+      name,
     });
     acc.users.push(user);
     acc.save();

@@ -13,10 +13,6 @@ export class User {
   @Prop()
   @IsNotEmpty()
   name: string;
-  @Prop()
-  @IsNotEmpty()
-  @IsIn(["Watcher", "Admin"])
-  type: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
