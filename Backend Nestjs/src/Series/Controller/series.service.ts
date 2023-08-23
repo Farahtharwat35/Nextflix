@@ -5,11 +5,10 @@ import { Series } from '../Model/series.schema';
 
 @Injectable()
 export class SeriesService {
-  constructor(@InjectModel(Series.name) private seriesModel: Model<Series>) {}
+  constructor(@InjectModel(Series.name) private seriesModel: Model<Series>) { }
 
   async createSeries(seriesData: Partial<Series>): Promise<Series> {
-      return this.seriesModel.create(seriesData);
-        
+    return this.seriesModel.create(seriesData);
   }
 
   async getAllSeries(): Promise<Series[]> {
@@ -21,6 +20,11 @@ export class SeriesService {
     if (!series) {
       throw new NotFoundException('Series not found');
     }
+    return series;
+  }
+
+  async getSeriesMediaById(id: string): Promise<Series | null> {
+    const series = await this.seriesModel.findById(id).populate('seasons').exec();
     return series;
   }
 

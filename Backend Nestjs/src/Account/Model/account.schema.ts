@@ -1,8 +1,9 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Type } from 'class-transformer';
 import { IsArray, IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
-import { HydratedDocument } from 'mongoose';
 import { Subscription } from '../../Subscription/Model/subscription.schema';
+import mongoose, { HydratedDocument } from 'mongoose';
+import {  IsPhoneNumber, IsStrongPassword } from 'class-validator';
 import { User } from 'src/User/Model/user.schema';
 
 export type AccountDocument = HydratedDocument<Account>;
@@ -20,26 +21,26 @@ export class Account {
 
     @Prop()
     @IsNotEmpty()
-    @IsArray()
-    // @ValidateNested({each: true})
-    // @Type(() => User)
-    users: []
+    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }])
+    users: User[]
 
     @Prop()
     @IsNotEmpty()
-    @IsString()
+    // @IsStrongPassword()
     password: string
 
     @Prop()
     @IsNotEmpty()
-    @IsString()
+    // @IsPhoneNumber()
     phoneNo: string
 
     @Prop()
     @IsNotEmpty()
-    // @ValidateNested()
-    // @Type(() => Subscription)
-    subscription: "Standard" | "Platinum"
+    subscription: "Normal" | "Platinum" | null
+
+    @Prop()
+    @IsNotEmpty()
+    type: "Watcher" | "Admin";
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account);

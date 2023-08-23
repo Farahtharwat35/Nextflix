@@ -8,8 +8,11 @@ import { ObjectId } from 'bson';
 export class UserService {
   constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) { }
 
-  async create(userData: User): Promise<User> {
-    const newUser = await this.userModel.create(userData);
+  async create(@Body() req: { name: string }): Promise<User> {
+    const newUser = await this.userModel.create({
+      name: req.name,
+      createdAt: Date.now()
+    });
     return newUser.save();
   }
   async update(id: string, userData: User) {
@@ -29,5 +32,4 @@ export class UserService {
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
-
 }

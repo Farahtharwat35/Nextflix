@@ -1,14 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
-import { Season } from '../../Season/Model/season.schema'; // Import the Season schema
+import mongoose, { Document, Types } from 'mongoose';
+import { Season } from '../../Season/Model/season.schema';
 
 @Schema()
 export class Series extends Document {
   @Prop({ required: true })
   title: string;
 
-  @Prop([{ type: Types.ObjectId, ref: 'Season' }])
-  seasons: Season[]; // Reference to the Season schema
+  @Prop([{ type: mongoose.Types.ObjectId, ref: 'Season', required: true }])
+  seasons: mongoose.Types.ObjectId[];
 }
 
-export const SeriesSchema = SchemaFactory.createForClass(Series); //create a Mongoose model (acts as a blueprint for creating documents based on the defined schema.)
+export const SeriesSchema = SchemaFactory.createForClass(Series);

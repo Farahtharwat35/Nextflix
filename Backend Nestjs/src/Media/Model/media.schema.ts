@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsUrl } from 'class-validator';
 import { Document, Types } from 'mongoose';
 
 export type Review = {
@@ -12,24 +13,28 @@ export class Media extends Document {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop()
   author: string;
 
-  @Prop({required:true})
+  @Prop()
   reviews: Review[];
 
-  @Prop({ required: true })
+  @Prop()
   poster: string;
 
-  @Prop({ required: true })
+  // @Prop({ required: true })
+  @Prop()
   overview: string;
 
-  @Prop({ required: true })
+  @Prop()
   productionDate: Date;
 
   @Prop()
+  @IsUrl()
   videoTrailer: string; // URL to the video/trailer
 
+  @Prop()
+  views: number;
 }
 
 export const MediaSchema = SchemaFactory.createForClass(Media);
