@@ -3,8 +3,6 @@ import { Account } from '../Model/account.schema';
 import { RolesGuard } from '../../Middlewares/roles.guard';
 import { Roles } from '../../Middlewares/roles.decorator';
 import { AccountService } from './account.service';
-import { JwtService } from '@nestjs/jwt';
-import { UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { User } from 'src/User/Model/user.schema';
 
@@ -26,20 +24,19 @@ export class AccountController {
     return this.AccountService.findAll();
   }
 
-  @Post("update/:id")
-  @UseGuards(RolesGuard)
-  @Roles("Watcher", "Admin")
-  async updateUser(@Param('id') id: string, @Body() accountData: Account) {
-    const acc = await this.AccountService.findOne(id)
-    console.log(acc)
-    acc.users.forEach(u => {
-      if (u! in accountData.users) {
-        accountData.users.push(u)
-      }
-    })
-    console.log("after", accountData)
-    return this.AccountService.update(id, accountData)
-  }
+  // @Post("update/:id") ---------- >> This functions needs to get reviewed ! because we have to decide either we Update Account info or not. Update users info? update what exactly?
+  // @UseGuards(RolesGuard)
+  // @Roles("Watcher", "Admin")
+  // async updateAccount(@Param('id') id: string, @Body() accountData: Account) { // was named UpdateUsers ; check its name in front-end
+  //   const acc = await this.AccountService.findOne(id)
+  //   acc.users.forEach(u => {
+  //     if (u in accountData.users) {
+  //       accountData.users.push(u)
+  //     }
+  //   })
+  //   console.log("after", accountData)
+  //   return this.AccountService.update(id, accountData)
+  // }
 
   @Post("delete/:id")
   @UseGuards(RolesGuard)
